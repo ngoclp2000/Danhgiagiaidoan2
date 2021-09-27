@@ -1,0 +1,294 @@
+﻿@import url('./background.css');
+@import url('./button.css');
+@import url('./combobox.css');
+@import url('../layout/content.css');
+@import url('./dialog.css');
+@import url('../layout/header.css');
+@import url('./icon.css');
+@import url('../layout/navbar.css');
+@import url('../layout/view-table.css');
+@import url('./select.css');
+@import url('./toast.css');
+@import url('./toolbar.css');
+@import url('./input.css');
+@import url('./table.css');
+@import url('../page/employee-detail.css');
+@import url('../page/salary-detail.css');
+@import url('./date-pick.css');
+@import url('./animation.css');
+@import url('./responsive.css');
+@import url('./contextmenu.css');
+@import url('./tooltip.css');
+@import url('../base/main.css');
+@import url('../base/reset.css');
+
+.center-div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+button {
+    cursor: pointer;
+}
+
+.rotate-opposite {
+    transform: rotateY(180deg);
+}
+
+.rotate-oppositeX {
+    transform: rotateX(180deg);
+}
+
+.x-icon {
+    background-image: url("../../../assets/icon/x.svg");
+    background-repeat: no-repeat;
+    background-size: 14px;
+    background-position: center center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50% 50%;
+    background-color: #e9ebee;
+    position: absolute;
+    right: 16px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.x-icon.combobox-icon {
+    right: 52px;
+    top: 10px;
+}
+
+.x-icon.currency-icon {
+    right: 0;
+    left: 16px;
+}
+
+.x-icon.search-icon {
+    right: 25px;
+}
+
+.combobox {
+    width: 252px;
+    padding-right: 72px;
+}
+
+.none-pointer {
+    pointer-events: none;
+}
+
+.border-red {
+    border: 1px solid #FF4747 !important;
+}
+
+.visible {
+    visibility: visible !important;
+}
+
+.no-content {
+    position: sticky;
+    left :0;
+    top : 50%;
+    transform: translate(0%,-50%);
+    font-size: 13px;
+    background-color: #fff;
+}
+.no-content .no-content-img {
+    background-image: url("../../../assets/icon/no-content.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 150px;
+}
+.no-content .no-content-text {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type="checkbox"]:checked:before {
+    background-color: #04b474;
+}
+
+.checkbox-custom {
+    display: none;
+}
+
+.checkbox-custom-label {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    margin: 5px;
+    cursor: pointer;
+
+}
+
+.checkbox-custom+.checkbox-custom-label:before {
+    content: '';
+    background: #fff;
+    border-radius: 2px;
+    border: 1px solid #afafaf;
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    padding: 0px;
+}
+
+.checkbox-custom+.active-checkbox:before {
+    border-color: #2ca01c !important;
+}
+
+.checkbox-custom:checked+.checkbox-custom-label:before {
+    background-color: #fff;
+    border-color: #afafaf;
+}
+
+.checkbox-custom:checked+.checkbox-custom-label:after {
+    content: "";
+    padding: 2px;
+    position: absolute;
+    width: 1px;
+    height: 5px;
+    border: 1px solid #2ca01c;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+    top: 2px;
+    left: 4.5px;
+}
+
+/* Create a custom radio button */
+.container {
+    display: inline-block;
+    position: relative;
+    padding-left: 25px;
+    padding-top: 2px;
+    cursor: pointer;
+    user-select: none;
+  }
+.container:not(:last-of-type){
+    margin-right:  16px;
+}
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #fff;
+    border: 1px solid #afafaf;
+    border-radius: 50%;
+}
+.container:focus-within .checkmark{
+    box-shadow: 0 0 3pt 0.5pt rgb(44 160 28) !important;
+}
+/* When the radio button is checked, add a blue background */
+.container input:checked~.checkmark {
+    background-color: #ffffff;
+    border-color: rgb(44, 160, 28);
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked~.checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+    top: 3px;
+    left: 3px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgb(44, 160, 28);
+}
+
+
+.half-w {
+    display: inline-block;
+    width: 50%;
+}
+.full-w{
+    width: 100%;
+}
+.w2p5 {
+    width: 40% !important;
+}
+.w3p5 {
+    width: 60% !important;
+}
+.w4p5{
+    width: 80% !important;
+}
+.w1p3{
+    width: 33.33% !important;
+}
+.w2p3{
+    width: 66.66% !important;
+}
+.pr26 {
+    padding-right: 26px;
+}
+.pr20{
+    padding-right: 20px;
+}
+.pl10{
+    padding-left: 10px;
+}
+.mr0{
+    margin-right: 0px !important;
+}
+.px-3{
+    padding-left: .75rem!important;
+    padding-right: .75rem!important;
+}
+.h2p3{
+    max-height: calc(67%);
+    height: calc(67%);
+}
+.h1p3{
+    max-height: calc(33%);
+    height: calc(33%);
+}
+.h3p5{
+    max-height: calc(60%);
+    height: calc(60%);
+}
+.h2p5{
+    max-height: calc(40%);
+    height: calc(40%);
+}
+.full-height{
+    height: 100% !important;
+    max-height: 100% !important;
+}
+.absolute-bottom{
+    position: absolute !important;
+    bottom: 0 !important;
+    width: 100% !important;
+}
+.divide{
+    width: 100%;
+    border-top: 1px solid #e0e0e0;
+    margin:0px 0 20px 0;
+    position: relative;
+}

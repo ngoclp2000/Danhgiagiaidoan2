@@ -1,0 +1,87 @@
+﻿.m-dialog {
+    display: block;
+    width: 100vw;
+    z-index: 4;
+}
+.layout-blur {
+    display: block;
+    background-color: rgba(0,0,0,.4);
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.5;
+}
+.popup-layout {
+    background-color: rgba(0,0,0,.4);
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.5;
+    z-index: 3;
+}
+
+.popup{
+    width: fit-content;
+    min-width: fit-content;
+    /* max-height: 201px; */
+    background-color: #ffffff;
+    border-radius: 4px;
+    z-index: 3;
+    animation: appear .3s ease-in-out;
+    box-shadow: 0 5px 20px 0 rgb(0 0 0 / 10%);
+    position: absolute;
+    top: 50%;
+    transform: translate(0,-50%);
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+.popup .popup-content{
+    padding: 20px;
+    width: 400px;
+    height: 100%;
+}
+.popup .popup-content .divide{
+    margin: 0;
+    margin-bottom: 10px;
+}
+.popup .popup-content .popup-footer{
+    height: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.popup .popup-content .popup-footer .popup-footer-right{
+    display: flex;
+    flex-wrap: wrap;
+}
+.popup .popup-content .popup-footer .popup-footer-right > div:first-of-type {
+    margin-right: 8px;
+}
+
+.popup .popup-content .content-popup{
+    display : flex;
+    justify-content: flex-start;
+}
+.popup .popup-content .content-popup .icon-popup{
+    flex: 15%;
+    width: 48px;
+    height: 48px;
+}
+.popup .popup-content .content-popup .content-popup-msg{
+    flex: 85%;
+    max-height: 400px;
+    margin-bottom: 32px;
+    padding-left: 16px;
+    padding-top: 12px;
+}
+.popup .popup-content .content-popup .confirmation{
+    background: url('../../../assets/icon/icon-sprites.svg') no-repeat -826px -456px;
+} 
+.popup .popup-content .content-popup .warning{
+    background: url('../../../assets/icon/icon-sprites.svg') no-repeat -592px -456px;
+} 
+.popup .popup-content .content-popup .error{
+    background: url('../../../assets/icon/icon-sprites.svg') no-repeat -24px -954px;
+}
+.popup .popup-content .content-popup .warning-code{
+    background: url('../../../assets/icon/icon-sprites.svg') no-repeat -592px -456px;
+}

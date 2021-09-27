@@ -1,0 +1,98 @@
+﻿.header {
+    float: left;
+    width: calc(100% - 178px);
+    height: 48px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    transition: all 0.3s ease-out;
+    
+}
+
+.header .header-left {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+.header .header-left .header-toggle-container {
+    height: 100%;
+    width: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header .header-left .header-toggle {
+    width: 24px;
+    height: 24px;
+    margin: 0px 10px;
+    background: url('../../../assets/icon/icon-sprites.svg') no-repeat -843px -30px;
+    cursor: pointer;
+}
+
+.header .header-left .cbo {
+    position: relative;
+}
+.header .header-left .cbo .x-icon{
+    display: none !important;
+}
+.header .header-left .cbo .combobox{
+    width: 490px;
+    border: none;
+    cursor: auto;
+    padding-left: 10px;
+    padding-right: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    font-weight: 600;
+    box-shadow: none !important;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    transition: all .2s ease;
+    font-family: Roboto-Bold;
+}
+.header .cbo .icon-container {
+    border-left: none;
+    background-color: #fff !important;
+}
+.header .cbo .icon-container .icon-input{
+    display: inline-block !important; 
+}
+.header .cbo .icon-container .icon-input-common{
+    display: none !important; 
+}
+.header .cbo .select-custom{
+    max-width: 490px !important;
+}
+.header .cbo .select-custom .option {
+    z-index: 100;
+    width: 490px !important;
+    box-sizing: border-box;
+}
+
+.header .account-info {
+    display: flex;
+    float: right;
+    justify-content: center;
+    align-items: center;
+}
+
+.header .account-info .account-avatar {
+    background: url('../../../assets/icon/icon-sprites.svg') no-repeat -788px -30px;
+    width: 24px;
+    height: 24px;
+    margin-right: 16px;
+}
+
+.header .account-info .account-name {
+    height: 48px;
+    line-height: 48px;
+}
+
+.header .account-info .account-option {
+    background: url('../../../assets/icon/option.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    margin: 14px 16px;
+}

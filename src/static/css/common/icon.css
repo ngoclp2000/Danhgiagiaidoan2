@@ -1,0 +1,30 @@
+﻿.icon-search {
+    background-image: url('../../../assets/icon/search.png');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px) center;
+    background-size: 19px;
+}
+.rotate-X{
+    transform : rotateX(180deg);
+}
+.add-icon{
+    background: url('../../../assets/icon/add.svg') no-repeat;
+}
+.delete-icon{
+    background: url('../../../assets/icon/delete.svg') no-repeat;
+}
+.refresh-icon{
+    background: url('../../../assets/icon/icon-sprites.svg') no-repeat -423px -201px;
+}
+.edit-icon{
+    background: url('../../../assets/icon/edit.svg') no-repeat;
+}
+.duplicate-icon{
+    background: url('../../../assets/icon/duplicate.svg') no-repeat;
+}
+.zoom-icon{
+    
+}
+.resize-icon{
+    background: url('../../../assets/icon/vertical-resizing-option.svg') no-repeat;
+}

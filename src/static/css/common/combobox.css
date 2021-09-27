@@ -1,0 +1,11 @@
+.cbo{
+    display: inline-block;
+    position: absolute;
+}
+
+.content .cbo .wrong-input{
+    left: 25px;
+}
+.cbo input{
+    outline: none !important;
+}

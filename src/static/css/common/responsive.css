@@ -1,0 +1,25 @@
+@media  screen and (max-width: 1366px){
+    .m-btn-close{
+        right: 33px !important;
+    }
+    .header .header-left .header-toggle-container{
+        width: 47px;
+    }
+    .navbar .logo-site{
+        width: calc(100% - 5px);
+    }
+}
+@media screen and (max-width: 1024px){
+    .input-search{
+        width: 250px !important;
+    }
+    .navbar .navbar-content {
+        max-height: 768px;
+    }
+    .header .header-left .header-toggle-container{
+        width: 47px;
+    }
+    .navbar .logo-site{
+        width: calc(100% - 5px);
+    }
+}

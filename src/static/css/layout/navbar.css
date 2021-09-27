@@ -1,0 +1,163 @@
+﻿.navbar {
+    display: block;
+    float: left;
+    width: 178px;
+    height: 100vh;
+}
+    .navbar .logo-site {
+        display: flex;
+        background-color: #38393d;
+        padding: 10px;
+        height: 48px;
+        align-items: center;
+        justify-content: center;
+        transform: translateX(-100%);
+        transform: translateX(-100%);
+        animation: slide-in 0.5s forwards;
+    }
+        .navbar .logo-site .toggle-icon{
+            background: url('../../../assets/icon/icon-sprites.svg') no-repeat -424px -86px;
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .navbar .logo-site .misa-logo{
+            display: block;
+            height: 32px;
+        }
+        .navbar .logo-site .misa-logo img{
+            height: 32px;
+        }
+    .navbar .navbar-content {
+        background-color: #38393d;
+        padding-top: 14px;
+        height: calc(100% - 48px);
+        position: relative;
+        /* transition: all 0.3s ease-out; */
+        transform: translateX(-100%);
+        animation: slide-in 0.5s forwards;
+        overflow: auto;
+    }
+    .navbar .navbar-content::-webkit-scrollbar{
+        width: 5px !important;
+    }
+        .navbar .navbar-content .navbar-item {
+            display: flex;
+            align-items: center;
+            height: 42px;
+            color: #fff;
+            padding-left: 8px;
+            line-height: 44px;
+            border-left: 6px solid transparent;
+            text-decoration: none !important;
+            transition: all 0.3s ease-out;
+        }
+        .navbar .navbar-content .navbar-item .navbar-icon{
+            background: url('../../../assets/icon/icon-sprites.svg') no-repeat;
+            margin-right: 8px;
+        }
+            .navbar .navbar-content .navbar-item:hover {
+                background-color: #5d5e61;
+                cursor: pointer;
+            }
+           
+        
+            
+.navbar .navbar-content .navbar-item .navbar-icon{
+    width: 24px;
+    height: 24px;
+}
+.navbar-item-icon-dashboard{
+    background-position: -30px -1628px !important;
+}
+
+.navbar-item-icon-cash{
+    background-position: -73px -1628px !important;
+}
+.navbar-item-icon-employee{
+    background-position: -117px -1661px !important;
+}
+.navbar-item-icon-buy{
+    background-position: -161px -1628px !important;
+}
+.navbar-item-icon-sell{
+    background-position: -204px -1628px !important;
+}
+.navbar-item-icon-receipt{
+    background-position: -249px -1628px !important;
+}
+.navbar-item-icon-warehouse{
+    background-position: -291px -1628px !important;
+}
+.navbar-item-icon-tool{
+    background-position: -336px -1628px !important;
+}
+.navbar-item-icon-asset{
+    background-position: -378px -1630px !important;
+}
+.navbar-item-icon-tax{
+    background-position: -423px -1630px !important;
+}
+.navbar-item-icon-price{
+    background-position: -467px -1628px !important;
+}
+.navbar-item-icon-synthesis{
+    background-position: -510px -1628px !important;
+}
+.navbar-item-icon-budget{
+    background-position: -378px -1659px !important;
+}
+.navbar-item-icon-report{
+    background-position: -547px -1628px !important;
+}
+.navbar-item-icon-analysis{
+    background-position: -204px -1664px !important;
+}
+
+/* Active */
+.navbar-item-icon-dashboard-active{
+    background-position: -30px -1585px !important;
+}
+.navbar-item-icon-cash-active{
+    background-position: -73px -1585px !important;
+}
+.navbar-item-icon-employee-active{
+    background-position: -162px -1661px !important;
+}
+.navbar-item-icon-buy-active{
+    background-position: -161px -1585px !important;
+}
+.navbar-item-icon-sell-active{
+    background-position: -204px -1585px !important;
+}
+.navbar-item-icon-receipt-active{
+    background-position: -249px -1585px !important;
+}
+.navbar-item-icon-warehouse-active{
+    background-position: -291px -1585px !important;
+}
+.navbar-item-icon-tool-active{
+    background-position: -336px -1585px !important;
+}
+.navbar-item-icon-asset-active{
+    background-position: -378px -1587px !important;
+}
+.navbar-item-icon-tax-active{
+    background-position: -423px -1587px !important;
+}
+.navbar-item-icon-price-active{
+    background-position: -467px -1585px !important;
+}
+.navbar-item-icon-synthesis-active{
+    background-position: -510px -1585px !important;
+}
+.navbar-item-icon-budget-active{
+    background-position: -422px -1659px !important;
+}
+.navbar-item-icon-report-active{
+    background-position: -547px -1585px !important;
+}
+.navbar-item-icon-analysis-active{
+    background-position: -204px -1664px !important;
+}

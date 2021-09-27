@@ -1,0 +1,124 @@
+/* Button*/
+button{
+    font-size: 13px;
+    cursor: pointer;
+}
+button[disabled]{
+    color: #9e9e9e !important;
+}
+/* div chứa button bên trong  */
+.m-btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    border-radius: 4px;
+    color: #ffffff;
+    border: none;
+    background-repeat: no-repeat;
+}
+.m-btn-disable {
+    color: #9e9e9e !important;
+    cursor: not-allowed;
+}
+
+/* Display */
+.display-none{
+    display: none;
+}
+.display-none-imp {
+    display: none !important;
+}
+
+.display-block {
+    display: block;
+}
+.display-block-imp{
+    display: block !important;
+}
+
+.display-flex{
+    display: flex;
+}
+.display-flex-imp {
+    display: flex !important;
+}
+
+.display-inline{
+    display: inline;
+}
+.display-inline-imp{
+    display: inline !important;
+}
+
+.display-inline-block{
+    display: inline-block;
+}
+.display-inline-block-imp{
+    display: inline-block !important;
+}
+
+/* Position */
+
+.position-relative{
+    position: relative;
+}
+.position-relative-imp{
+    position: relative !important;
+}
+
+.position-absolute{
+    position: absolute;
+}
+.position-absolute-imp{
+    position: absolute !important;
+}
+
+.position-fixed{
+    position: fixed;
+}
+.position-fixed-imp{
+    position: fixed !important;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #b8bcc3;
+}
+
+
+:root{
+    --table-header-bgColor: #eceef1;
+    --primary-btn-bgColor: #2ca01c;
+    --primary-btn-bgColor-hover: #35bf22;
+    --second-btn-bgColor: #fff;
+    --second-btn-bgColor-hover: #d2d3d6; 
+    --font-family-common-regular: Roboto-Regular;
+    --font-family-common-italic: Roboto-Italic;
+    --font-family-common-bold: Roboto-Bold;
+}
+
+/* @font-face {
+    font-family: 'Roboto-Bold';
+    src: url('../../font/Roboto/Roboto-Bold.ttf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Roboto-Italic';
+    src: url('../../font/Roboto/Roboto-Italic.ttf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Roboto-Regular';
+    src: url('../../font/Roboto/Roboto-Regular.ttf') format('opentype');
+} */

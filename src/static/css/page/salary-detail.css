@@ -1,0 +1,246 @@
+.salary-detail {
+    display: block;
+    border-radius: 5px;
+    min-width: 900px;
+    width: 900px;
+    max-height: 585px;
+    background-color: #ffffff;
+    overflow: auto;
+}
+
+.salary-detail .grid {
+    margin: 0px;
+    max-width: 100% !important;
+    /* max-height: 190px !important; */
+}
+
+.salary-detail .sticky {
+    display: flex;
+    padding: 15px;
+    padding-right: 12px;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 3;
+}
+
+.salary-detail .sticky .m-btn-list {
+    margin-right: 4px;
+}
+
+.salary-detail .close-button:hover {
+    background-color: #e5e5e5;
+}
+
+.salary-detail .title {
+    font-size: 24px;
+    font-weight: 700;
+    font-family: Roboto-Bold;
+}
+
+.salary-detail .salary-detail-content {
+    position: relative;
+    padding: 15px;
+    height: calc(100% - 54px);
+}
+.salary-detail .salary-detail-content .grid-table{
+    position: relative;
+    height: 100%;
+}
+.salary-detail .salary-detail-content .bottom-part{
+    position: relative;
+    height: calc(100% - 150px);
+}
+.salary-detail .salary-detail-content .grid-table table {
+    border-spacing: 0;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+}
+.salary-detail .salary-detail-content .grid-table table input{
+    width: 100% !important;
+}
+
+.salary-detail .salary-detail-content .grid-table table .summerize td {
+    background-color: var(--table-header-bgColor) !important;
+}
+
+.salary-detail .salary-detail-content .grid-table table .summerize {
+    position: sticky;
+    bottom: 0;
+    z-index: 3;
+}
+
+.salary-detail .salary-detail-content .grid-table table th,
+.salary-detail .salary-detail-content .grid-table table td {
+    border-bottom: 1px solid #e6e4e4;
+    text-align: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 0 10px;
+    background-color: #fff;
+    height: 42px;
+    max-height: 42px;
+    min-height: 42px;
+    padding: 5px 10px 5px 10px;
+}
+
+.salary-detail .salary-detail-content .grid-table table .range-td {
+    width: 80px !important;
+}
+
+.salary-detail .salary-detail-content .grid-table table .function-td {
+    width: 90px !important;
+}
+
+.salary-detail .salary-detail-content .grid-table table th {
+    vertical-align: middle;
+    background-color: var(--table-header-bgColor) !important;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.salary-detail .salary-detail-content .grid-table table tr,
+.salary-detail .salary-detail-content .grid-table table thead {
+    position: relative;
+}
+
+.salary-detail .salary-detail-content .grid-table .grid-table-header {
+    padding: 16px 0px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.salary-detail .salary-detail-content .grid-table .grid-table-search-bar {
+    padding: 16px 0px;
+    padding-top: 0px;
+}
+
+.salary-detail .salary-detail-content .grid-table .grid-table-search-bar input {
+    height: 42px !important;
+    border-radius: 2px;
+    border: 1px solid #babec5;
+    width: 300px;
+    padding-right: 45px;
+}
+
+.salary-detail .salary-detail-content .grid-table .grid-table-header .grid-table-header-title {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: Roboto-Bold;
+}
+
+.salary-detail .salary-detail-content .grid-table .grid-table-header .btn-container {
+    display: flex;
+}
+
+.salary-detail .salary-detail-content .grid-table .grid-table-header .btn-container .add-icon {
+    background-size: 23px !important;
+    width: 24px !important;
+    height: 24px !important;
+    cursor: pointer;
+}
+
+.salary-detail .salary-detail-content .grid-table .grid-table-header .btn-container .delete-icon {
+    background-size: 23px !important;
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.salary-detail .salary-detail-content .input-information {
+    display: inline-block;
+    flex-direction: column;
+    margin: 0px 10px 15px 0px;
+    position: relative;
+}
+
+.salary-detail .salary-detail-content .name-information {
+    display: block;
+    margin-bottom: 5px;
+    font-family: Roboto-Bold;
+    font-weight: 700;
+}
+
+.salary-detail .salary-detail-content .input-information input:not([type='radio']) {
+    width: 100%;
+    height: 42px;
+}
+
+.salary-detail .salary-detail-content .input-information input:focus {
+    border-color: rgb(44, 160, 28);
+}
+
+.salary-detail .salary-detail-content .input-information .select-container {
+    position: relative;
+}
+
+.salary-detail .salary-detail-content .input-information .select-container .option {
+    width: 100%;
+    height: 42px;
+    box-sizing: border-box;
+}
+
+.salary-detail .salary-detail-content .input-information .select-custom {
+    width: 100%;
+    max-width: 100%;
+}
+
+.salary-detail .salary-detail-content .input-information .icon-input {
+    position: relative;
+}
+
+.salary-detail .footer {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    border-radius: 5px;
+    max-height: 36px;
+    width: calc(100% - 30px);
+    min-height: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.salary-detail .footer .footer-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .employee-detail .footer .cancel {
+        width: 80px;
+        padding: 0px;
+    } */
+.salary-detail .footer button {
+    padding: 8px 20px;
+    background-repeat: no-repeat;
+    background-size: 12px;
+    background-position: 16px center;
+    font-weight: 600;
+    height: 36px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 1px solid #8d9096;
+}
+
+@font-face {
+    font-family: 'Roboto-Bold';
+    src: url('../../font/Roboto/Roboto-Bold.ttf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Roboto-Regular';
+    src: url('../../font/Roboto/Roboto-Regular.ttf') format('opentype');
+}

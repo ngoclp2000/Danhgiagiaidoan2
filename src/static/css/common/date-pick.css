@@ -1,0 +1,55 @@
+@font-face {
+    font-family: 'Roboto-Italic';
+    src: url('../../font/Roboto/Roboto-Italic.ttf') format('opentype');
+}
+.mx-datepicker{
+    width: 100% !important;
+}
+.mx-input::placeholder{
+    font-family: var(--font-family-common-italic);
+}
+.mx-input{
+    padding-right: 30px !important;
+}
+.mx-input:focus{
+    border-color: rgb(44, 160, 28);
+}
+.mx-btn:hover {
+    border-color: rgb(44, 160, 28) !important;
+    color: rgb(44, 160, 28) !important;
+}
+.mx-input-wrapper .mx-input:hover{
+    border-color:  #bbbbbb ;
+}
+.mx-calendar-content .cell.active {
+    color: #fff !important;
+    background-color: rgb(44, 160, 28) !important;
+}
+.mx-icon-calendar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 95%;
+    width: 32px;
+    border-radius: 2px;
+    position: absolute;
+    top: 1px !important;
+    right: 1px !important;
+    -webkit-transform: translateY(0) !important; 
+    transform: translateY(0) !important; 
+    font-size: 16px !important;
+    line-height: 1;
+    color: #fff;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.mx-icon-calendar:hover{
+    background-color: #e0e0e0;
+}
+.mx-icon-calendar svg{
+    height: 32px;
+    width: 30px;
+}
+.mx-table-date .today{
+    color: rgb(44, 160, 28) !important;
+}

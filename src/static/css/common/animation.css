@@ -1,0 +1,32 @@
+@keyframes appear {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+@keyframes slide {
+  from {
+    width:0;
+  }to{
+    width: 100%;
+  }
+}
+@keyframes disappear {
+  from {
+    width: 100%;
+  }
+  to{
+    width: 0px;
+  }
+}
+@keyframes slide-in {
+  100% { transform: translateX(0%); }
+}
+@keyframes slide-out {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(110%); }
+}
+@keyframes appear-navbar-logo {
+  0%{transform: translateX(-100%);}
+  100% { transform: translateX(0%); }
+}
