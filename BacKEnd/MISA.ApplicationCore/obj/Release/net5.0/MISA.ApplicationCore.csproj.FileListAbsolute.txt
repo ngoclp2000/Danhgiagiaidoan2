@@ -1,0 +1,14 @@
+C:\Users\LaptopAZ.vn\source\repos\MISA.CukCuk\MISA.ApplicationCore\bin\Release\net5.0\MISA.ApplicationCore.deps.json
+C:\Users\LaptopAZ.vn\source\repos\MISA.CukCuk\MISA.ApplicationCore\bin\Release\net5.0\MISA.ApplicationCore.dll
+C:\Users\LaptopAZ.vn\source\repos\MISA.CukCuk\MISA.ApplicationCore\bin\Release\net5.0\ref\MISA.ApplicationCore.dll
+C:\Users\LaptopAZ.vn\source\repos\MISA.CukCuk\MISA.ApplicationCore\bin\Release\net5.0\MISA.ApplicationCore.pdb
+C:\Users\LaptopAZ.vn\source\repos\MISA.CukCuk\MISA.ApplicationCore\obj\Release\net5.0\MISA.ApplicationCore.csproj.AssemblyReference.cache
+C:\Users\LaptopAZ.vn\source\repos\MISA.CukCuk\MISA.ApplicationCore\obj\Release\net5.0\MISA.ApplicationCore.Properties.Resources.resources
+C:\Users\LaptopAZ.vn\source\repos\MISA.CukCuk\MISA.ApplicationCore\obj\Release\net5.0\MISA.ApplicationCore.csproj.GenerateResource.cache
+C:\Users\LaptopAZ.vn\source\repos\MISA.CukCuk\MISA.ApplicationCore\obj\Release\net5.0\MISA.ApplicationCore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LaptopAZ.vn\source\repos\MISA.CukCuk\MISA.ApplicationCore\obj\Release\net5.0\MISA.ApplicationCore.AssemblyInfoInputs.cache
+C:\Users\LaptopAZ.vn\source\repos\MISA.CukCuk\MISA.ApplicationCore\obj\Release\net5.0\MISA.ApplicationCore.AssemblyInfo.cs
+C:\Users\LaptopAZ.vn\source\repos\MISA.CukCuk\MISA.ApplicationCore\obj\Release\net5.0\MISA.ApplicationCore.csproj.CoreCompileInputs.cache
+C:\Users\LaptopAZ.vn\source\repos\MISA.CukCuk\MISA.ApplicationCore\obj\Release\net5.0\MISA.ApplicationCore.dll
+C:\Users\LaptopAZ.vn\source\repos\MISA.CukCuk\MISA.ApplicationCore\obj\Release\net5.0\ref\MISA.ApplicationCore.dll
+C:\Users\LaptopAZ.vn\source\repos\MISA.CukCuk\MISA.ApplicationCore\obj\Release\net5.0\MISA.ApplicationCore.pdb
