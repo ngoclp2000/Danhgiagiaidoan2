@@ -3,7 +3,7 @@
         <div :class="{'toggle-navbar' : toggle.isToggleNavbar}" class="content">
             <div class="content-header">
                 <div class="title">{{title}}</div>
-                <BaseButton @click="displayAddForm" classList="m-btn-default m-primary-btn" :btnText="btnAddText" />
+                <!-- <BaseButton @click="displayAddForm" classList="m-btn-default m-primary-btn" :btnText="btnAddText" /> -->
             </div>
             <div class="main-content">
                 <div class="toolbar-content">
@@ -13,9 +13,12 @@
                                 classList="icon-search input-search user-input" type="text" errorContent="" refType=""
                                 validType="search" ref="searchchingInput" @enterPress="searchData"
                                 @refreshData="searchData" :tooltipContent="tooltipContent['searchBar']"
-                                noneCheck="true" />
+                                :noneCheck="true" />
                         </div>
                         <div class="filter-right">
+                            <div class="add-icon" v-tooltip="tooltipContent['addData']" @click="displayAddForm">
+
+                            </div>
                             <div class="delete-icon" v-tooltip="tooltipContent['deleteData']"
                                 @click="deleteMultipleData">
                             </div>
@@ -25,28 +28,14 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="grid"> -->
-                    <BaseTable @hideSpinner="hideSpinner" 
-                        :classListGridContainer="'grid-employee'"
-                        @updateTotalRecord="updateTotalRecord" @updatePageSize="updatePageSize"
-                        @updatePagination="updatePagination"
-                        @displayFormEdit="displayFormEdit" @displayConfirmationPopup="displayConfirmationPopup"
-                        @displayFormDuplicate="displayFormDuplicate" ref="table" :type="type" :ths="ths" />
-                    <!-- <div class="no-content" v-if="totalRecord == 0">
-                        <div class="no-content-img">
+                <BaseTable @hideSpinner="hideSpinner" :classListGridContainer="'grid-employee'"
+                    @updateTotalRecord="updateTotalRecord" @updatePageSize="updatePageSize"
+                    @updatePagination="updatePagination" :keyAttribute="'EmployeeId'" @displayFormEdit="displayFormEdit"
+                    @displayConfirmationPopup="displayConfirmationPopup" @displayFormDuplicate="displayFormDuplicate"
+                    ref="table" :type="type" :ths="ths" @changeLockDeleteFirstRecord="changeLockDeleteFirstRecord" />
 
-                        </div>
-                        <div class="no-content-text">
-                            {{textResource['noContent']}}
-                        </div>
-                        <LoadingSpinner v-if="isShowSpinner" />
-                    </div> -->
-                </div>
-                <LoadingSpinner v-if="isShowSpinner && totalRecord != 0" />
-                <!-- <BasePagingBar v-if="totalRecord != 0" type="nhân viên" @updatePageSize="updatePageSize"
-                    :pageSize="$store.state.data.payload.pageSize" ref="pagingBar" @updatePagination="updatePagination"
-                    :totalRecord="totalRecord" :maxPageNumber="maxPageNumber" :isReady="isReady" /> -->
-            <!-- </div> -->
+            </div>
+            
         </div>
         <EmployeeDetail @hideForm="hideForm" v-if="isShowForm" @refreshData="refreshDataButtonClick" ref="employee" />
         <BasePopup @hideLayout="isShowPopUp=false" @refreshData="refreshDataButtonClick" @deleteData="deleteData"
@@ -57,11 +46,9 @@
 <script>
     import BaseTable from '../../../components/BaseTable.vue'
     import EmployeeDetail from './EmployeeDetail.vue'
-    import BaseButton from '../../../components/BaseButton.vue'
+    // import BaseButton from '../../../components/BaseButton.vue'
     import BasePopup from '../../../components/BasePopup.vue'
     import BaseInput from '../../../components/BaseInput.vue'
-    // import BasePagingBar from '../../../components/BasePagingBar.vue'
-    import LoadingSpinner from '../../../components/LoadingSpinner.vue'
     import EmployeeAPI from '../../../api/components/employeeapi'
 
     import {
@@ -81,12 +68,11 @@
             this.btnAddText = this.buttonContentResource['commonButton']['addNew']
         },
         async mounted() {
-            let payload = {
+            this.payload = {
                 contentFilter: "",
                 pageSize: 10,
                 pageIndex: 0
             }
-            this.$store.commit('CHANGE_PAYLOAD', payload);
             await this.refreshData();
             this.checkOverFlowTable();
         },
@@ -107,18 +93,25 @@
                 title: "",
                 type: "employee-table",
                 ths: [],
+                payload: {},
+                lockDeleteRecord: false,
+                firstRecord: null
             }
         },
         components: {
             BaseTable,
             EmployeeDetail,
-            BaseButton,
             BasePopup,
             BaseInput,
-            // BasePagingBar,
-            LoadingSpinner
         },
         methods: {
+            /**
+             * Thay đổi khóa xóa dữ liệu đầu tiên khi chuyển trang
+             * Created By TBN (3/10/2021)
+             */
+            changeLockDeleteFirstRecord() {
+                this.lockDeleteRecord = true;
+            },
             /**
              * Phương thức thực hiện xóa nhiều
              * Created By TBN(1/9/2021)
@@ -139,10 +132,22 @@
              * Created By TBN(25/7/2021)
              */
             async displayAddForm() {
-                this.isShowForm = true;
-                setTimeout(() => {
-                    //this.$refs.employee.init();
-                }, 0)
+                if (this.isReady) {
+                    this.isShowForm = true;
+                    setTimeout(() => {
+                        //this.$refs.employee.init();
+                    }, 0)
+                } else {
+                    let index = await this.$store.dispatch('randomText', 4)
+                    let content = this.toastMessageResource['unReadyData']
+                    let type = "warning"
+                    let payloadToast = {
+                        content,
+                        type,
+                        index
+                    }
+                    this.$store.dispatch('createToast', payloadToast)
+                }
             },
             /**
              * Ẩn spinner
@@ -177,16 +182,16 @@
              */
             async searchData() {
                 // Lấy payload từ kho dữ liệu
-                let payload = this.$store.state.data.payload
-                this.checkField(payload)
+                this.checkField(this.payload)
                 // Mặc định trang đầu tiên
-                payload["pageIndex"] = 0
+                this.payload["pageIndex"] = 0
                 // Gọi vào mutation để thay đổi payload
-                this.$store.commit('CHANGE_PAYLOAD', payload)
                 await this.refreshData();
                 if (this.totalRecord != 0) {
                     this.$refs.table.$refs.pagingBar.currentPage = 1 // Chuyển trang hiện tại về 1 
-                    this.$refs.table.$refs.pagingBar.pages = [1, 2, 3, 4] // Đặt lại nội dung của dãy 4 số ở paging bar
+                    this.$refs.table.$refs.pagingBar.pages = [1, 2, 3,
+                        4
+                    ] // Đặt lại nội dung của dãy 4 số ở paging bar
                 }
             },
             /**
@@ -195,6 +200,7 @@
              */
             async refreshDataButtonClick(isGoToFirstPage = true) {
                 if (this.isReady) {
+                    this.$refs.table.selectedList = [];
                     if (isGoToFirstPage) {
                         if (this.$refs.pagingBar)
                             this.$refs.pagingBar.currentPage = 1;
@@ -239,15 +245,15 @@
                 this.$refs.table.isReady = false;
                 try {
                     // Gọi API lấy dữ liệu theo phân trang,tìm kiếm...
-                    let res = await EmployeeAPI.filterData(this.$store.state.data.payload);
+                    let res = await EmployeeAPI.filterData(this.payload);
                     res.data.Data = this.formatData(res.data.Data); // format lại data
                     // Gán dữ liệu cho bảng
-                    this.$refs.table.setData(res.data.Data,res.data.TotalPage,res.data.TotalRecord)
+                    this.$refs.table.setData(res.data.Data, res.data.TotalPage, res.data.TotalRecord)
 
                     // Cập nhật giá trị tổng số trang, tổng số bản ghi
                     this.updateMaxPageNumber(res.data.TotalPage);
                     this.updateTotalRecord(res.data.TotalRecord);
-                    
+
                     // Cập nhật dữ liệu cho bảng: 
                     //  dòng được chọn(checkedList)
                     //  kiểu sắp xếp dữ liệu (true = Desc, false = Asc) (sortDirectionList)
@@ -256,17 +262,24 @@
                     res.data.Data.forEach(() => {
                         newList.push(false);
                     })
-                    this.$refs.table.checkedList = [...newList];
                     this.$refs.table.sortDirectionList = [...newList];
                     this.$refs.table.displayFunctionList = [...newList];
                     
-                    // Chuyển dấu tích chọn về default
-                    if (this.$refs.table.$refs.all.checked)
-                        this.$refs.table.$refs.all.click();
+                    if (this.$refs.table.dataTable.length > 0) {
+                        if (this.firstRecord != null && !this.lockDeleteRecord) {
+                            this.$refs.table.changeSelectedData(this.firstRecord, "remove");
+                        }
+                        this.firstRecord = this.$refs.table.dataTable[0];
+                        this.lockDeleteRecord = false;
+                        this.$refs.table.changeSelectedData(this.$refs.table.dataTable[0], "add");
+                        this.$nextTick(()=>{
+                            this.$refs.table.$refs["row0"][0].focus();
+                        })
+                    }
+
                     // Chuyển trạng thái về sẵn sàng, dữ liệu
                     this.isReady = true;
                     this.$refs.table.isReady = true;
-                    this.$refs.table.selectedList = [];
                 } catch (error) {
                     if (error.response.data.Message != null) {
                         let index = await this.$store.dispatch('randomText', 4)
@@ -289,8 +302,8 @@
                         }
                         this.$store.dispatch('createToast', payloadToast)
                     }
+                    this.$refs.table.isReady = true;
                 }
-                this.hideSpinner(); // Ẩn spinner
             },
             /**
              * Xóa dữ liệu theo danh sách EmployeeId
@@ -298,10 +311,10 @@
              */
             async deleteData() {
                 this.isShowSpinner = true; // Hiện spinner
+                let payload = [];
                 try {
                     let res = null;
-                    if (this.isDeleteMultiple) {
-                        let payload = [];
+                    if (this.$refs["table"].selectedList.length > 1) {
                         this.$refs["table"].selectedList.forEach(element => payload.push(element.EmployeeId));
                         res = await EmployeeAPI.deleteMultipleData(payload);
                     } else
@@ -319,7 +332,8 @@
                         this.$nextTick(() => {
                             this.$refs.confirmation.isShow = true;
                         })
-                        this.$refs["table"].selectedList = [];
+                        this.$refs["table"].selectedList = this.selectedList.filter(element => !payload.includes(
+                            element["EmployeeId"]))
                     } else {
                         this.isShowSpinner = false;
                         // Hiện toast Message thành công
@@ -332,7 +346,7 @@
                             index
                         }
                         this.$store.dispatch('createToast', payloadToast);
-                        this.$refs["table"].selectedList = [];
+                        this.$refs["table"].selectedList = []
                         await this.refreshData();
                         this.isShowSpinner = false;
                     }
@@ -372,7 +386,7 @@
 
                 // Chỉnh thông tin cho popup
                 let objectPopUp = {};
-                if (this.isDeleteMultiple) {
+                if (this.$refs["table"].selectedList.length > 1) {
                     objectPopUp.contentPopUp = this.popupContent['deleteMultiple'];
                 } else
                     objectPopUp.contentPopUp = this.popupContent['delete'].format(this.$refs["table"].selectedList[
@@ -472,19 +486,6 @@
                     })
                 }
             },
-            // /**
-            //  * Cập nhật mảng employeeId muốn xóa
-            //  * Created By TBN(26/7/2021)
-            //  */
-            // updateSelectedData(data, type) {
-            //     // hàm này giúp sau này xử lý việc xóa nhiều nhưng vẫn hoạt đọng được với xóa từng bản ghi
-            //     if (type == "remove")
-            //         this.selectedData = this.selectedData.filter(element => element.EmployeeId != data.EmployeeId)
-            //     else {
-            //         if (this.selectedData.filter(element => element.EmployeeId == data.EmployeeId).length == 0)
-            //             this.selectedData.push(data)
-            //     }
-            // },
             /**
              * Cập nhật trang hiện tại 
              * Created By TBN(26/7/2021)
@@ -499,11 +500,10 @@
              */
             async updatePagination(pageNumber) {
                 // Xử lý tương tự như lọc dữ liệu chỉ thay đổi pageNumber
-                let payload = this.$store.state.data.payload
-                this.checkField(payload)
-                payload["pageIndex"] = pageNumber
+                this.checkField(this.payload)
+                this.payload["pageIndex"] = pageNumber
                 this.currentPage = pageNumber
-                
+
                 await this.refreshData()
             },
             /**
@@ -512,10 +512,9 @@
              */
             async updatePageSize(pageSize) {
                 // Xử lý tương tự như lọc dữ liệu chỉ thay đổi pageNumber
-                let payload = this.$store.state.data.payload
-                this.checkField(payload)
-                payload["pageSize"] = parseInt(pageSize.split(' ')[0], 10); // Lọc lấy chữ số đầu tiên
-                payload["pageIndex"] = 0;
+                this.checkField(this.payload)
+                this.payload["pageSize"] = parseInt(pageSize.split(' ')[0], 10); // Lọc lấy chữ số đầu tiên
+                this.payload["pageIndex"] = 0;
                 await this.refreshData();
 
                 // Kiểm tra overflow

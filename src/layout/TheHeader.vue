@@ -6,7 +6,7 @@
                     
                 </div>
             </div>
-            <BaseCombobox ref="company" class="cbo select-container filter-select" isDisabledInput="true"  dataType="companyList" />
+            <BaseCombobox ref="company" class="cbo select-container filter-select" :isDisabledInput="true"  dataType="companyList" />
         </div>
         <div class="account-info">
             <div class="account-avatar"></div>

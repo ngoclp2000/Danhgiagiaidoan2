@@ -10,7 +10,7 @@
         <div class="paging-right">
             <BaseCombobox v-click-outside="hideBorderCombobox" @click.native="showBorderCombobox" ref="pageSize"
                 directionDrop="dropup" class="cbo select-container filter-select" dataType="pageSize"
-                @updateContent="updatePageSize" isDisabledInput="1" :isReadyData="isReady"
+                @updateContent="updatePageSize" :isDisabledInput="true" :isReadyData="isReady"
                 :class="{'waiting': isChangeBorderCbo}" />
             <div class="paging paging-center">
                 <BaseButton :isReadyData="isReady" @click="goToPreviousPage" class="large"
@@ -41,8 +41,8 @@
                     :btnText="maxPageNumber.toString()" alt="" />
                 <BaseButton :isReadyData="isReady" @click="goToNextPage" class="large"
                     :btnText="pagingBarButtonContent['next']" alt=""
-                    :classList="'btn-text large ' + (currentPage == maxPageNumber ? 'm-btn-disable' : '')"
-                    :disable="currentPage==maxPageNumber" />
+                    :classList="'btn-text large ' + (currentPage == maxPageNumber || maxPageNumber == 0 ? 'm-btn-disable' : '')"
+                    :disable="currentPage==maxPageNumber || maxPageNumber == 0" />
             </div>
         </div>
     </div>

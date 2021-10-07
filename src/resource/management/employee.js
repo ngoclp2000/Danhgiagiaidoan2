@@ -3,7 +3,7 @@ export const employee = {
         title: 'Nhân viên',
         formTitle: 'Thông tin nhân viên',
         popupContent: {
-            delete: 'Bạn có thực sự muốn xóa Nhân viên <{0}> không?',
+            delete: 'Bạn có thực sự muốn xóa Nhân viên <b>{0}</b> không?',
             deleteMultiple: 'Bạn có muốn xóa những nhân viên đã chọn không?',
             dataChange: 'Dữ liệu đã bị thay đổi. Bạn có muốn cất không?',
             errorGetNewCode: 'Lấy mã nhân viên thất bại',

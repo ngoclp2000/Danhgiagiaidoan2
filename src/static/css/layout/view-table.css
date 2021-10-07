@@ -3,7 +3,7 @@
     border-radius: 5px;
     min-width: 1200px;
     width: 1200px;
-    max-height: 900px;
+    max-height: 700px;
     background-color: #ffffff;
     overflow: auto;
     z-index: 20;
@@ -46,12 +46,23 @@
 .view-table  .view-table-search-bar {
     padding: 16px 15px;
     padding-top: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.view-table  .view-table-search-bar .refresh-icon{
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+}
+.view-table  .view-table-search-bar .input-container{
+    width: fit-content;
 }
 .view-table  .view-table-search-bar input {
     height: 42px !important;
     border-radius: 2px;
     border: 1px solid #babec5;
-    width: 400px;
+    width: 250px;
     padding-right: 45px;
 }
 .grid-view-table{

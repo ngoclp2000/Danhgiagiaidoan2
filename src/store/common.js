@@ -90,11 +90,11 @@ class Common {
      * Lấy danh sách tháng cho combobox
      * @returns 
      */
-    static getRangeMonth(){
+    static getRangeMonth(monthWord){
         let monthArray = [];
         for(let i = 1 ; i <= 12 ; i++) {
             monthArray.push({
-                content: i
+                content: monthWord + " " + i
             })
         }
         return monthArray;

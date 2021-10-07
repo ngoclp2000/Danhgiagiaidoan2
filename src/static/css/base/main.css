@@ -101,8 +101,10 @@ button[disabled]{
     --table-header-bgColor: #eceef1;
     --primary-btn-bgColor: #2ca01c;
     --primary-btn-bgColor-hover: #35bf22;
-    --second-btn-bgColor: #fff;
+    --second-btn-bgColor: #e8eaef;
     --second-btn-bgColor-hover: #d2d3d6; 
+    --delete-btn-bgColor: #db342e;
+    --delete-btn-bgColor-hover: #E81309;
     --font-family-common-regular: Roboto-Regular;
     --font-family-common-italic: Roboto-Italic;
     --font-family-common-bold: Roboto-Bold;

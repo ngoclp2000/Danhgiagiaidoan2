@@ -3,7 +3,7 @@
     border-radius: 5px;
     min-width: 900px;
     width: 900px;
-    max-height: 585px;
+    max-height: 561px;
     background-color: #ffffff;
     overflow: auto;
 }
@@ -17,8 +17,8 @@
 }
 .employee-detail .sticky{
     display: flex;
-    padding: 15px;
-    padding-right: 12px;
+    padding: 10px;
+    padding-right: 10px;
     position: sticky;
     top: 0;
     background-color: #fff;
@@ -29,9 +29,6 @@
 .employee-detail .sticky .header-form-left{
     display: flex;
     align-items: center;
-}
-.employee-detail .sticky .m-btn-list{
-    margin-right: 4px;
 }
     .employee-detail .close-button:hover{
         background-color: #e5e5e5;
@@ -59,7 +56,7 @@
     }
 
     .employee-detail .employee-detail-content{
-        padding: 15px;
+        padding: 10px;
         padding-bottom: 0px;
     }
     .employee-detail .employee-detail-content .divide{
@@ -114,7 +111,7 @@
             .employee-detail .employee-detail-content .input-information{
                 display: inline-block;
                 flex-direction: column;
-                margin: 0px 10px 15px 0px;
+                margin: 0px 8px 15px 0px;
                 position: relative;
             }
             

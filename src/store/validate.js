@@ -8,6 +8,23 @@ class Validation {
     static checkValidNumber(str) {
         return /^\d+$/.test(str.replaceAll('.', ''));
     }
+    /**
+     * Hàm kiểm tra định dạng số thực
+     * Created By TBN
+     * @param {String} str 
+     */
+    static checkFloatNumber(str) {
+        if(str.split('.').length > 2 || !this.checkValidNumber(str)) {
+            return false;
+        }
+        return true;
+    }
+    /**
+     * Hàm kiểm tra định dạng số điện thoại bàn 
+     * Created By TBN
+     * @param {String} str 
+     * @returns 
+     */
     static checkTelephoneNumber(str) {
         return /\([0-9]{3}\) [0-9]{3}-[0-9]{4}$/.test(str);
     }

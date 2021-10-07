@@ -7,7 +7,9 @@
     background-color: #ffffff;
     overflow: auto;
 }
-
+.salary-detail .no-content .no-content-img{
+    padding-top: 110px;
+}
 .salary-detail .grid {
     margin: 0px;
     max-width: 100% !important;
@@ -16,18 +18,14 @@
 
 .salary-detail .sticky {
     display: flex;
-    padding: 15px;
-    padding-right: 12px;
+    padding: 10px;
+    padding-right: 10px;
     position: sticky;
     top: 0;
     background-color: #fff;
     align-items: center;
     justify-content: space-between;
     z-index: 3;
-}
-
-.salary-detail .sticky .m-btn-list {
-    margin-right: 4px;
 }
 
 .salary-detail .close-button:hover {
@@ -42,8 +40,8 @@
 
 .salary-detail .salary-detail-content {
     position: relative;
-    padding: 15px;
-    height: calc(100% - 54px);
+    padding: 10px;
+    height: calc(100% - 44px);
 }
 .salary-detail .salary-detail-content .grid-table{
     position: relative;
@@ -61,6 +59,7 @@
 }
 .salary-detail .salary-detail-content .grid-table table input{
     width: 100% !important;
+    border-color: #e5e5e5;
 }
 
 .salary-detail .salary-detail-content .grid-table table .summerize td {
@@ -130,11 +129,23 @@
     width: 300px;
     padding-right: 45px;
 }
-
+.salary-detail .salary-detail-content .grid-table .grid-table-header .grid-table-header-left{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+}
+.salary-detail .salary-detail-content .grid-table .grid-table-header .grid-table-header-left .input-container {
+    width: fit-content;
+}
+.salary-detail .salary-detail-content .grid-table .grid-table-header .grid-table-header-left input {
+    height: 36px;
+    width: 180px;
+}
 .salary-detail .salary-detail-content .grid-table .grid-table-header .grid-table-header-title {
     font-size: 20px;
     font-weight: 700;
     font-family: Roboto-Bold;
+    margin-right: 10px;
 }
 
 .salary-detail .salary-detail-content .grid-table .grid-table-header .btn-container {
@@ -157,7 +168,7 @@
 .salary-detail .salary-detail-content .input-information {
     display: inline-block;
     flex-direction: column;
-    margin: 0px 10px 15px 0px;
+    margin: 0px 8px 15px 0px;
     position: relative;
 }
 
@@ -198,17 +209,17 @@
 
 .salary-detail .footer {
     position: absolute;
-    bottom: 15px;
-    right: 15px;
+    bottom: 10px;
+    right: 10px;
     border-radius: 5px;
     max-height: 36px;
-    width: calc(100% - 30px);
+    width: calc(100% - 20px);
     min-height: 36px;
     height: 36px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .salary-detail .footer .footer-right {

@@ -5,8 +5,8 @@ export const salary = {
         formTitle: 'Thông tin kỳ lương',
         placeHolder: {
             searchBarPeriod: "Tìm theo tên kỳ",
-            searchBarPeriodEmployee: "Tìm kiếm theo mã nhân viên,tên nhân viên",
-            searchBarEmployeeView: "Tìm kiểm theo mã, tên hoặc số điện thoại nhân viên",
+            searchBarPeriodEmployee: "Tìm kiếm nhân viên...",
+            searchBarEmployeeView: "Tìm kiểm nhân viên",
             date: "DD/MM/YYYY"
         },
         buttons: {
@@ -32,14 +32,15 @@ export const salary = {
             addFail: "Thêm mới dữ liệu thất bại",
         },
         popupContent: {
-            delete: 'Bạn có thực sự muốn xóa kỳ lương <{0}> không?',
+            delete: 'Bạn có thực sự muốn xóa kỳ lương <b>{0}</b> không?',
             deleteMultiple: 'Bạn có muốn xóa những kỳ lương đã chọn không?',
             dataChange: 'Dữ liệu đã bị thay đổi. Bạn có muốn cất không?',
             invalidCode: 'Mã không hợp lệ',
             deleteFail: 'Xóa kỳ lương thất bại',
             deletedData: 'Dữ liệu đã bị xóa',
             errorSystem: 'Có lỗi xảy ra vui lòng liên hệ MISA',
-            emptyDataTable: 'Vui lòng chọn ít nhất một nhân viên trong bảng'
+            emptyDataTable: 'Vui lòng chọn ít nhất một nhân viên trong bảng',
+            emptyDeleteDataTable: 'Vui lòng chọn ít nhất một kỳ lương để xóa'
         },
         formFieldTitle: {
             PeriodName: "Tên kỳ",
@@ -60,41 +61,41 @@ export const salary = {
             }, {
                 fieldName: "Month",
                 value: "Tháng",
-                textAlign: "right",
-                colWidth: "150px",
+                textAlign: "left",
+                colWidth: "80px",
             }, {
                 fieldName: "Year",
                 value: "Năm",
                 textAlign: "right",
-                colWidth: "150px",
+                colWidth: "60px",
             }, {
                 fieldName: "NumberOfEmployee",
                 value: "Số lượng nhân viên",
                 type: "number",
                 textAlign: "right",
-                colWidth: "250px",
+                colWidth: "130px",
             }, {
                 fieldName: "TotalSalary",
                 type: "number",
                 value: "Tổng tiền lương",
                 textAlign: "right",
-                colWidth: "250px"
+                colWidth: "150px"
             }, {
                 fieldName: "Note",
                 value: "Ghi chú",
-                colWidth: "350px",
+                colWidth: "742px",
             }],
             sub: [{
                 fieldName: "EmployeeCode",
                 value: "Mã nhân viên",
-                colWidth: "200px",
+                colWidth: "100px",
             }, {
                 fieldName: "EmployeeName",
                 value: "Tên nhân viên",
-                colWidth: "200px",
+                colWidth: "300px",
             }, {
                 fieldName: "CoefficientsSalary",
-                value: "Chỉ số lương",
+                value: "Hệ số lương",
                 type: "number",
                 textAlign: "right",
                 colWidth: "100px",
@@ -126,11 +127,11 @@ export const salary = {
                 colWidth: "140px",
             }, {
                 fieldName: "CoefficientsSalary",
-                value: "Chỉ số lương",
+                value: "Hệ số lương",
                 type: "float",
                 textAlign: "right",
                 colWidth: "100px",
-                validType:"required",
+                validType:"required float",
                 isInput: true,
             }, {
                 fieldName: "Subsidy",
@@ -138,7 +139,7 @@ export const salary = {
                 type: "money",
                 textAlign: "right",
                 colWidth: "100px",
-                validType:"none",
+                validType:"number",
                 isInput: true,
             }, {
                 fieldName: "SocialInsuranceCost",
@@ -146,7 +147,7 @@ export const salary = {
                 value: "Tiền bảo hiểm",
                 textAlign: "right",
                 colWidth: "110px",
-                validType:"none",
+                validType:"number",
                 isInput: true,
             }, {
                 fieldName: "Salary",

@@ -19,65 +19,69 @@
       <div class="salary-detail-content" ref="salaryContent">
         <div class="upper-part">
           <div class="display-flex">
-            <div class="input-information w1p3">
-              <div class="name-information">
-                {{formFieldTitle['PeriodName']}} <span style="color: red;">*</span>
+            <div class="half-w pr15">
+              <div class="input-information full-w">
+                <div class="name-information">
+                  {{formFieldTitle['PeriodName']}} <span style="color: red;">*</span>
+                </div>
+                <BaseInput :tabindex="1" :maxlength="255" ref="PeriodName" classList="user-input required" type="text"
+                  refType="employeeCode" name="PeriodName" validType="required"
+                  @bindingDataInput="bindingDataInput('PeriodName',$refs['PeriodName'].inputContent)" />
               </div>
-              <BaseInput tabindex="1" maxlength="255" ref="PeriodName" classList="user-input required" type="text"
-                refType="employeeCode" name="PeriodName" validType="required"
-                @bindingDataInput="bindingDataInput('PeriodName',$refs['PeriodName'].inputContent)" />
             </div>
-            <div class="input-information w1p3">
-              <div class="name-information">
-                {{formFieldTitle['Month']}} <span style="color: red;">*</span>
+            <div class="half-w">
+              <div class="display-flex">
+                <div class="input-information half-w">
+                  <div class="name-information">
+                    {{formFieldTitle['Month']}} <span style="color: red;">*</span>
+                  </div>
+                  <BaseCombobox :tabindex="2" ref="Month" class="cbo select-container full-w" dataType="month"
+                    name="Month" :maxlength="255" validType="required" :isDisabledInput="true" :noneCheck="true"
+                    @bindingDataInput="bindingDataInput('Month',$refs['Month'].inputContent)" />
+                </div>
+                <div class="input-information half-w mr0">
+                  <div class="name-information">
+                    {{formFieldTitle['Year']}} <span style="color: red;">*</span>
+                  </div>
+                  <BaseCombobox :tabindex="3" ref="Year" class="cbo select-container full-w" dataType="year" name="Year"
+                    :maxlength="255" validType="required"
+                    @bindingDataInput="bindingDataInput('Year',$refs['Year'].inputContent)" />
+                </div>
               </div>
-              <BaseCombobox tabindex="12" ref="Month" class="cbo select-container full-w" dataType="month" name="Month"
-                maxlength="255" validType="required"
-                @bindingDataInput="bindingDataInput('Month',$refs['Month'].inputContent)" />
-            </div>
-            <div class="input-information w1p3 mr0">
-              <div class="name-information">
-                {{formFieldTitle['Year']}} <span style="color: red;">*</span>
-              </div>
-              <BaseCombobox tabindex="12" ref="Year" class="cbo select-container full-w" dataType="year" name="Year"
-                maxlength="255" validType="required"
-                @bindingDataInput="bindingDataInput('Year',$refs['Year'].inputContent)" />
             </div>
           </div>
-          <div>
-            <div class="input-information full-w mr0">
-              <div class="name-information">
-                {{formFieldTitle['Note']}}
-              </div>
-              <BaseInput tabindex="15" ref="Note" classList="user-input required " type="text" name="Note"
-                maxlength="255" @bindingDataInput="bindingDataInput('Note',$refs['Note'].inputContent)" />
+
+
+          <div class="input-information full-w mr0">
+            <div class="name-information">
+              {{formFieldTitle['Note']}}
             </div>
+            <BaseInput :tabindex="4" ref="Note" classList="user-input required " type="text" name="Note"
+              :maxlength="255" @bindingDataInput="bindingDataInput('Note',$refs['Note'].inputContent)" />
           </div>
         </div>
 
         <div class="bottom-part">
           <div class="grid-table">
             <div class="grid-table-header">
-              <div class="grid-table-header-title">
-                {{resource[this.$browserLocale]['management']['entity']['Salary']['titleSubTable']}}
+              <div class="grid-table-header-left">
+                <div class="grid-table-header-title">
+                  {{resource[this.$browserLocale]['management']['entity']['Salary']['titleSubTable']}}</div>
+                <BaseInput :contentPlHolder="placeHolder['searchBarPeriodEmployee']"
+                  classList="icon-search input-search " type="text" errorContent="" refType="" validType="search"
+                  ref="searchchingInput" @enterPress="searchData" @refreshData="searchData"
+                  :tooltipContent="tooltipContent['searchBar']" :noneCheck="true" />
               </div>
               <div class="btn-container">
                 <div class="add-icon" v-tooltip="tooltipContent['addData']" @click="isShowViewTable=true">
 
                 </div>
-                <div class="delete-icon" v-tooltip="tooltipContent['deleteData']" @click="displayConfirmationPopup">
+                <div class="delete-icon" v-tooltip="tooltipContent['deleteData']" @click="deleteData">
                 </div>
               </div>
             </div>
-            <div class="grid-table-search-bar">
-              <BaseInput :contentPlHolder="placeHolder['searchBarPeriodEmployee']" classList="icon-search input-search "
-                type="text" errorContent="" refType="" validType="search" ref="searchchingInput"
-                @enterPress="searchData" @refreshData="searchData" :tooltipContent="tooltipContent['searchBar']"
-                noneCheck="true" />
-            </div>
             <BaseTable :classListGridContainer="'grid-form'" :ths="ths" ref="formSalaryTable" type="employeeSalaryForm"
-              @displayConfirmationPopup="displayConfirmationPopup" :summarizeField="summarizeFieldName"
-              :displayPaging="false" />
+              @displayConfirmationPopup="deleteData" :displayPaging="false" :keyAttribute="'EmployeeId'" />
           </div>
 
         </div>
@@ -86,10 +90,10 @@
 
           </div>
           <div class="footer-right">
-            <BaseButton tabindex="22" @click="$emit('hideForm')" classList="cancel m-second-btn"
+            <BaseButton :tabindex="9999" @click="$emit('hideForm')" classList="cancel m-second-btn"
               :btnText="footerFormButtonContent['cancel']" class="px-3"
               :tooltipContent="tooltipContent['footerFormButton']['cancel']" />
-            <BaseButton tabindex="23" :btnText="footerFormButtonContent['save']" classList="m-primary-btn"
+            <BaseButton :tabindex="10000" :btnText="footerFormButtonContent['save']" classList="m-primary-btn"
               :tooltipContent="tooltipContent['footerFormButton']['save']" @click="storeInformation(false)" />
           </div>
         </div>
@@ -97,8 +101,9 @@
     </div>
     <BasePopup ref="popUp" @hideForm="$emit('hideForm')" @focusErrorField="focusErrorField" v-if="isShowPopUp"
       @hideLayout="isShowPopUp=false" @deleteData="deleteData" />
-    <BaseViewTable :ths="thsViewTable" :api="api" @closeViewTable="isShowViewTable=false" v-if="isShowViewTable"
-      :placeHolder="placeHolder['searchBarEmployeeView']" @addChosenData="addChosenData" />
+    <BaseViewTable :ths="thsViewTable" :title="'Chọn nhân viên'" :api="api" @closeViewTable="isShowViewTable=false"
+      v-if="isShowViewTable" :placeHolder="placeHolder['searchBarEmployeeView']" @addChosenData="addChosenData"
+      :keyAttribute="'EmployeeId'" />
   </div>
 </template>
 
@@ -114,7 +119,7 @@
   import PeriodSalaryAPI from '../../../api/components/periodsalaryapi'
   import PeriodSalaryEmployeeAPI from '../../../api/components/periodsalaryemployeeapi'
   import EmployeeAPI from '../../../api/components/employeeapi'
-
+  import Validation from '../../../store/validate'
   import {
     mapActions,
   } from 'vuex'
@@ -138,10 +143,10 @@
     mounted() {
       this.api = EmployeeAPI;
       // Lấy dữ liệu cho combobox tháng, năm
-      let monthArray = Common.getRangeMonth();
+      let monthArray = Common.getRangeMonth(this.resource[this.$browserLocale]['common']['text']['month']);
 
       let currentYear = new Date().getFullYear(),
-        yearArray = Common.getRangeYear(currentYear);
+        yearArray = Common.getRangeYear(currentYear + 2);
 
       this.$refs.Month.setData(monthArray);
       this.$refs.Year.setData(yearArray);
@@ -167,26 +172,38 @@
       })
 
       // Đưa tabindex về cuối khi shift tab tabindex đầu tiên
-      let tabIndexField = this.$refs["salaryContent"].querySelectorAll('input.user-input');
-      let lastTeabIndexField = tabIndexField[tabIndexField.length - 1];
+      //let tabIndexField = this.$refs["salaryContent"].querySelectorAll('input.user-input');
       this.$refs.PeriodName.$refs.input.addEventListener('keydown', (e) => {
         if ((e.which === 9 && e.shiftKey)) {
           e.preventDefault();
-          lastTeabIndexField.focus() // Focus EmployeeCode input
+          lastIndex.focus()
         }
       })
 
-      // Focus vào input đầu tiền
-      this.$refs.PeriodName.$refs.input.focus();
+      
       // Đặt giá trị ban đầu cho combobox ngày, tháng là tháng, năm hiện tại
       let currentDate = new Date();
       if (this.statusMode == STATUSMODE.ADD) {
-        this.$refs.Month.setInputContent(currentDate.getMonth() + 1);
+        this.$refs.Month.setInputContent(this.resource[this.$browserLocale]['common']['text']['month'] + " " + (
+          currentDate.getMonth() + 1));
         this.$refs.Year.setInputContent(currentDate.getFullYear());
-        this.keepingPeriodSalary["Month"] = currentDate.getMonth() + 1;
+        this.keepingPeriodSalary["Month"] = this.resource[this.$browserLocale]['common']['text']['month'] + " " + (
+          currentDate.getMonth() + 1);
         this.keepingPeriodSalary["Year"] = currentDate.getFullYear();
       }
-
+      setTimeout(() => {
+        // Đặt sự kiện tab cho input trong bảng
+        let inputs = this.$refs["formSalaryTable"].$el.querySelectorAll("input:not([type=checkbox])");
+        let tabindex = this.tabindex;
+        for (let i = 0; i < inputs.length; i++) {
+          if (inputs[i].tabIndex == 0)
+            inputs[i].tabIndex = tabindex + i;
+        }
+      }, 500)
+      setTimeout(()=>{
+        // Focus vào input đầu tiền
+         this.$refs.PeriodName.$refs.input.focus();
+      },200)
     },
     data() {
       return {
@@ -204,6 +221,7 @@
         arrayDeleteSalaryPeriodEmployeeId: [],
         arrayAddedEmployee: [],
         arrayChangedSalaryPeriodEmployee: [],
+        tabindex: 5
       }
     },
     methods: {
@@ -212,24 +230,26 @@
        * Created by TBN(25/9/2021)
        */
       deleteData() {
-        let arrayDeleted = this.$refs["formSalaryTable"].selectedList.map(element => element.EmployeeId);
-        let dataTable = this.$refs["formSalaryTable"].dataTable;
-        // Lọc lại nhân viên sau khi xóa
-        this.$refs["formSalaryTable"].dataTable = [...dataTable.filter(element => !arrayDeleted.includes(element
-          .EmployeeId))];
+        if (this.$refs["formSalaryTable"].selectedList.length > 0) {
+          let arrayDeleted = this.$refs["formSalaryTable"].selectedList.map(element => element.EmployeeId);
+          let dataTable = this.$refs["formSalaryTable"].dataTable;
+          // Lọc lại nhân viên sau khi xóa
+          this.$refs["formSalaryTable"].dataTable = [...dataTable.filter(element => !arrayDeleted.includes(element
+            .EmployeeId))];
+          this.$refs["formSalaryTable"].keepingDataTable = this.$refs["formSalaryTable"].dataTable;
+          this.$refs["formSalaryTable"].selectedList = []; // Đưa danh sách được chọn về rỗng
+        } else {
+          let objectPopUp = {};
+          objectPopUp.contentPopUp = this.popupContentSalary['emptyDataTable'];
+          objectPopUp.type = "warning-code"
+          objectPopUp.buttonTexts = this.footerPopUpButtonContent[objectPopUp.type];
 
-        this.$refs["formSalaryTable"].selectedList = []; // Đưa danh sách được chọn về rỗng
+          this.updateObjectPopUp(objectPopUp);
+          this.isShowPopUp = true;
 
-        // Cập nhật mảng checkbox của bảng
-        let newList = [];
-        dataTable.forEach(() => {
-          newList.push(false);
-        })
-        this.$refs["formSalaryTable"].checkedList = newList;
-
-        // Xóa hết các dấu tick
-        for (let i = 0; i < newList.length; i++) {
-          this.$refs["formSalaryTable"].$refs["checkbox" + i][0].checked = false;
+          this.$nextTick(() => {
+            this.$refs.popUp.isShow = true;
+          })
         }
       },
       /**
@@ -293,16 +313,54 @@
           element.PeriodSalaryId = this.keepingPeriodSalary.PeriodSalaryId
         });
 
-        let newDataTable = [...dataTable, ...newData]
+        let newDataTable = [...dataTable, ...newData];
+        let initialDataCount = dataTable.length;
         // Cập nhật dữ liệu cho bảng
         this.$refs["formSalaryTable"].dataTable = newDataTable;
         this.$refs["formSalaryTable"].keepingDataTable = newDataTable;
-        // Cập nhật mảng được chọn cho bảng
-        let newList = [];
-        newDataTable.forEach(() => {
-          newList.push(false);
+        this.$nextTick(() => {
+          if (initialDataCount == 0) {
+            // Nếu danh sách trống thì focus vào bản ghi đầu tiên
+            this.$refs["formSalaryTable"].selectedList.push(newDataTable[0]);
+            this.$refs["formSalaryTable"].$refs["row0"][0].focus();
+          } else {
+            // Nếu danh sách được chọn đã có thì sẽ focus vào phần tử được chọn cuối cùng
+            this.$nextTick(() => {
+              let lastElement = this.$refs["formSalaryTable"].selectedList.at(-1);
+              let lastIndex = newDataTable.indexOf(lastElement);
+              if (lastIndex != -1)
+                this.$refs["formSalaryTable"].$refs["row" + lastIndex][0].focus();
+              else this.$refs["formSalaryTable"].$refs["row0"][0].focus();
+            })
+          }
+          // Đặt tabindex cho index trong bảng
+          this.$nextTick(() => {
+            let inputs = this.$refs["formSalaryTable"].$el.querySelectorAll("input:not([type=checkbox])");
+            let tabindex = this.tabindex;
+            for (let i = 0; i < inputs.length; i++) {
+                inputs[i].tabIndex = tabindex + i;
+            }
+          })
+
         })
-        this.$refs["formSalaryTable"].checkedList = newList;
+
+      },
+      /**
+       * Hàm validate input trong bảng
+       * Created By TBN (1/10/2021)
+       */
+      validateInputInTable(validType, convertText, content) {
+        if (validType.search("required") != -1) {
+          if (content == "0" || content == "") {
+            return convertText["empty"];
+          }
+        }
+        if (validType.search("number") != -1 || validType.search("float") != -1) {
+          if (!Validation.checkValidNumber(content.toString().replaceAll('.', ''))) {
+            return convertText["invalid"];
+          }
+        }
+        return "";
       },
       /**
        * Kiểm tra tính đúng đắn của các trường dữ liệu trong cửa sổ nhập dữ liệu
@@ -337,12 +395,36 @@
             } else {
               this.$refs[key].errorContentData = content;
             }
+          } else {
+            // Các trường dữ liệu khác
+            let inputCombobox = this.$refs[key].$refs.inputCombobox;
+            if (inputCombobox != null) {
+              inputCombobox.$refs.input.blur();
+              if (inputCombobox.isError) {
+                let content = convertText[key]['invalid'];
+                errorContents.push({
+                  key,
+                  content
+                })
+              }
+            } else {
+              if (this.$refs[key].$refs.input) {
+                this.$refs[key].validateContent();
+                if (this.$refs[key].isError) {
+                  let content = convertText[key]['invalid'];
+                  errorContents.push({
+                    key,
+                    content
+                  })
+                }
+              }
+            }
           }
         }
 
         // Custom Validate : Phần này sẽ tùy thuộc vào component hiện tại đang làm gì
         // Kiểm tra bảng có dữ liệu trong bảng hay không
-        if (this.$refs["formSalaryTable"].dataTable.length == 0) {
+        if (this.$refs["formSalaryTable"].keepingDataTable.length == 0) {
           // Thiết lập thông tin cho popup sau đó hiển thị
           let objectPopUp = {};
           objectPopUp.contentPopUp = this.popupContentSalary['emptyDataTable'];
@@ -359,19 +441,26 @@
             this.$refs.popUp.errorContents = errorContents;
           })
         }
-        // Kiểm tra input trong bảng
-        let listFieldToCheck = ["CoefficientsSalary"];
-        for (let i = 0; i < this.$refs["formSalaryTable"].dataTable.length; i++) {
+        // Kiểm tra hợp lệ trong bảng
+        let firstTime = true;
+        let listFieldToCheck = ["CoefficientsSalary", "Subsidy", "SocialInsuranceCost"];
+        for (let i = 0; i < this.$refs["formSalaryTable"].keepingDataTable.length; i++) {
           for (let j = 0; j < listFieldToCheck.length; j++) {
-            let inputContent = this.$refs["formSalaryTable"].$refs[listFieldToCheck[j] + i][0].$el.querySelector(
-              'input').value;
-            if (inputContent == "0" || !inputContent) {
-              let content = convertText[listFieldToCheck[j]]['empty'];
-
+            let inputContent = this.$refs["formSalaryTable"].keepingDataTable[i][listFieldToCheck[j]];
+            let th = this.ths.filter(element => element.fieldName == listFieldToCheck[j])[0];
+            let checkContent = this.validateInputInTable(th.validType, convertText[listFieldToCheck[j]],
+              inputContent);
+            if (checkContent != "") {
+              // Khi có dữ liệu trong bảng bị lỗi phải đưa bảng về trạng thái ban đầu để kiểm tra
+              if(firstTime){
+                this.$refs["searchchingInput"].inputContent = "";
+                this.searchData();
+                firstTime = false;
+              }
               errorContents.push({
                 key: listFieldToCheck[j],
                 ref: listFieldToCheck[j] + i,
-                content,
+                content: checkContent,
               })
             }
           }
@@ -389,7 +478,7 @@
         // Mảng mã định danh nhân viên ban đầu
         let arrayInitialEmployeeId = keepingDataSubTable.map(element => element.EmployeeId);
         // Mảng mã định danh nhân viên mới sau thêm, sửa hoặc xóa
-        let arrayNewEmployeeId = this.$refs["formSalaryTable"].dataTable.map(element => element.EmployeeId);
+        let arrayNewEmployeeId = this.$refs["formSalaryTable"].keepingDataTable.map(element => element.EmployeeId);
         // Mảng mã định danh nhân viên cũ, xóa hoặc được thêm mới
         let arrayOldEmployeeId = [],
           arrayDeleteEmployeeId = [],
@@ -406,25 +495,29 @@
         let arrayOldEmployee = keepingDataSubTable.filter(element => arrayOldEmployeeId.includes(element
           .EmployeeId));
         // Danh sách nhân viên cũ nhưng trong dữ liệu mới
-        let arrayOldChangedEmployee = this.$refs["formSalaryTable"].dataTable.filter(element => arrayOldEmployeeId
+        let arrayOldChangedEmployee = this.$refs["formSalaryTable"].keepingDataTable.filter(element =>
+          arrayOldEmployeeId
           .includes(element.EmployeeId));
         // Danh sách nhân viên được thêm mới
-        this.arrayAddedEmployee = this.$refs["formSalaryTable"].dataTable.filter(element => arrayAddedEmployeeId
+        this.arrayAddedEmployee = this.$refs["formSalaryTable"].keepingDataTable.filter(element => arrayAddedEmployeeId
           .includes(element.EmployeeId))
         // Kiểm tra sự thay đổi dữ liệu của nhân viên cũ
+        this.arrayChangedSalaryPeriodEmployee = [];
+
         arrayOldEmployee.forEach(element => {
           let checkedEmployee = arrayOldChangedEmployee.filter(e => e.EmployeeId == element.EmployeeId)[0];
+          checkedEmployee["PeriodSalaryEmployeeId"] = element["PeriodSalaryEmployeeId"];
           if (JSON.stringify(checkedEmployee) != JSON.stringify(element)) {
             // Nếu có sự thay đổi thì thêm mới vào  mảng nhân viên thay đổi
-            checkedEmployee["PeriodSalaryEmployeeId"] = element. ["PeriodSalaryEmployeeId"];
             this.arrayChangedSalaryPeriodEmployee.push(checkedEmployee);
           }
         })
         // Mảng mã định danh nhân viên bị xóa
         this.arrayDeleteSalaryPeriodEmployeeId = keepingDataSubTable.filter(element => arrayDeleteEmployeeId
-          .includes(element.EmployeeId)).map(e => e.PeriodSalaryEmployeeId);
+          .includes(element.EmployeeId));
+
         // Kiểm tra xem có sự thay đổi của dữ liệu trong bảng
-        if (arrayDeleteEmployeeId.length != 0 || this.arrayAddedEmployee.length != 0 || this
+        if (this.arrayDeleteSalaryPeriodEmployeeId.length != 0 || this.arrayAddedEmployee.length != 0 || this
           .arrayChangedSalaryPeriodEmployee
           .length != 0) {
           return true;
@@ -438,7 +531,7 @@
       async updateSubInformation() {
         // Xóa dữ liệu nhân viên
         this.arrayDeleteSalaryPeriodEmployeeId.forEach(async function (element) {
-          await PeriodSalaryEmployeeAPI.deleteData(element);
+          await PeriodSalaryEmployeeAPI.deleteData(element.PeriodSalaryEmployeeId);
         })
         // Thêm mới dữ liệu nhân viên
         this.arrayAddedEmployee.forEach(async function (element) {
@@ -452,6 +545,50 @@
         this.arrayDeleteSalaryPeriodEmployeeId = [];
         this.arrayAddedEmployee = [];
         this.arrrChangedSalaryPeriodEmployee = [];
+      },
+      async prepareListPeriodSalaryEmployee() {
+        let arrayObject = {
+          EmployeeNewList: "",
+          EmployeeDeleteList: "",
+          EmployeeUpdateList: "",
+        };
+        // Xóa dữ liệu nhân viên
+        let string = "";
+        this.arrayDeleteSalaryPeriodEmployeeId.forEach(async function (element) {
+          if (string == "") {
+            string += JSON.stringify(element);
+          } else {
+            string += "," + JSON.stringify(element);
+          }
+        })
+        if (string != "")
+          arrayObject["EmployeeDeleteList"] = "[" + string + "]";
+        else arrayObject["EmployeeDeleteList"] = null;
+        string = "";
+        // Thêm mới dữ liệu nhân viên
+        this.arrayAddedEmployee.forEach(async function (element) {
+          if (string == "") {
+            string += JSON.stringify(element);
+          } else {
+            string += "," + JSON.stringify(element);
+          }
+        })
+        if (string != "")
+          arrayObject["EmployeeNewList"] = "[" + string + "]";
+        else arrayObject["EmployeeNewList"] = null;
+        string = "";
+        // Sửa thông tin nhân viên cũ
+        this.arrayChangedSalaryPeriodEmployee.forEach(async function (element) {
+          if (string == "") {
+            string += JSON.stringify(element);
+          } else {
+            string += "," + JSON.stringify(element);
+          }
+        })
+        if (string != "")
+          arrayObject["EmployeeUpdateList"] = "[" + string + "]";
+        else arrayObject["EmployeeUpdateList"] = null;
+        return arrayObject;
       },
       /**
        * Lưu dữ liệu hoặc sửa dữ liệu của nhân viên
@@ -477,13 +614,15 @@
                   index
                 }
                 this.$store.dispatch('createToast', payloadToast);
-                this.$emit('hideForm');
-                this.$emit('refreshData', false);
+                setTimeout(() => {
+                  this.$emit('hideForm');
+                  this.$emit('refreshData', true);
+                }, 20)
               } catch (e) {
                 console.log(e);
               }
             } else {
-              this.focusErrorField(errorContents);
+              this.focusErrorField(errorContents,true);
             }
 
           } else {
@@ -509,27 +648,36 @@
             if (this.statusMode == STATUSMODE.EDIT) {
               // Sửa dữ liệu sau đó thông báo bằng toast message
               try {
+                let object = null;
+                if (this.checkChangeSubTable()) {
+                  object = await this.prepareListPeriodSalaryEmployee();
+                  this.currentPeriodSalary["EmployeeDeleteList"] = object["EmployeeDeleteList"];
+                  this.currentPeriodSalary["EmployeeNewList"] = object["EmployeeNewList"];
+                  this.currentPeriodSalary["EmployeeUpdateList"] = object["EmployeeUpdateList"];
+                }
                 let res = await PeriodSalaryAPI.updateData(this.currentPeriodSalary.PeriodSalaryId, this
                   .currentPeriodSalary);
                 if (res.data.MISACode == MISACODE.NotValid) {
+                  let convertText = this.resource[this.$browserLocale]['common'][
+                    'dictionaryError'
+                  ];
                   // Validate lỗi nhưng mà đề bài này k cần đến
                   let arrError = res.data.Message;
+                  let errorContents = [];
                   arrError.forEach(async (element) => {
-                    let index = await this.$store.dispatch('randomText', 4)
-                    let content = element.usrMsg
-                    let type = "error"
-                    let payloadToast = {
-                      content,
-                      type,
-                      index
-                    }
-                    this.$store.dispatch('createToast', payloadToast)
+                    errorContents.push({
+                      content: convertText[element.fieldName],
+                      key: element.fieldName,
+                      type: element.type
+                    })
                   });
+                  this.focusErrorField(errorContents,true);
+
                 } else if (res.data.MISACode == MISACODE.Success) {
                   // Cập nhật dữ liệu của bảng nếu có thay đổi xảy ra
-                  if (this.checkChangeSubTable()) {
-                    await this.updateSubInformation();
-                  }
+                  // if (this.checkChangeSubTable()) {
+                  //   await this.updateSubInformation();
+                  // }
                   // Thành công
                   let index = await this.$store.dispatch('randomText', 4)
                   let type = "success";
@@ -541,8 +689,10 @@
                   }
                   this.$store.dispatch('createToast', payloadToast)
                   if (!isMore) {
-                    this.$emit('hideForm');
-                    this.$emit('refreshData', false);
+                    setTimeout(() => {
+                      this.$emit('hideForm');
+                      this.$emit('refreshData', true);
+                    }, 0)
                   } else {
                     this.statusMode = STATUSMODE.ADD;
                     await this.init();
@@ -566,25 +716,35 @@
             } else {
               // Thêm mới nhân viên sau đó thông báo bằng toast message
               try {
+                let object = null;
+                if (this.checkChangeSubTable()) {
+                  object = await this.prepareListPeriodSalaryEmployee();
+                  this.currentPeriodSalary["EmployeeDeleteList"] = object["EmployeeDeleteList"];
+                  this.currentPeriodSalary["EmployeeNewList"] = object["EmployeeNewList"];
+                  this.currentPeriodSalary["EmployeeUpdateList"] = object["EmployeeUpdateList"];
+                }
+
                 let res = await PeriodSalaryAPI.createNewData(this.currentPeriodSalary);
                 // Kiểm tra mã code tương tự sửa
                 if (res.data.MISACode == MISACODE.NotValid) {
+                  let convertText = this.resource[this.$browserLocale]['common'][
+                    'dictionaryError'
+                  ];
+                  // Validate lỗi nhưng mà đề bài này k cần đến
                   let arrError = res.data.Message;
+                  let errorContents = [];
                   arrError.forEach(async (element) => {
-                    let index = await this.$store.dispatch('randomText', 4)
-                    let content = element.usrMsg
-                    let type = "error"
-                    let payloadToast = {
-                      content,
-                      type,
-                      index
-                    }
-                    this.$store.dispatch('createToast', payloadToast)
+                    errorContents.push({
+                      content: convertText[element.fieldName],
+                      key: element.fieldName,
+                      type: element.type
+                    })
                   });
+                  this.focusErrorField(errorContents,true);
                 } else if (res.data.MISACode == MISACODE.Success) {
-                  if (this.checkChangeSubTable()) {
-                    await this.updateSubInformation();
-                  }
+                  // if (this.checkChangeSubTable()) {
+                  //   await this.updateSubInformation();
+                  // }
                   let index = await this.$store.dispatch('randomText', 4)
                   let type = "success";
                   let content = this.toastMessageSalaryResource['addSuccess']
@@ -595,14 +755,13 @@
                   }
                   this.$store.dispatch('createToast', payloadToast)
                   if (!isMore) {
-                    this.$emit('hideForm');
-                    this.$emit('refreshData');
+                    setTimeout(() => {
+                      this.$emit('hideForm');
+                      this.$emit('refreshData', true);
+                    }, 0)
                   } else {
                     this.statusMode = STATUSMODE.ADD;
-                    await this.init();
-                    await this.getNewEmployeeCode();
                   }
-
                 } else {
                   let index = await this.$store.dispatch('randomText', 4)
                   let type = "error";
@@ -619,7 +778,7 @@
               }
             }
           } else {
-            this.focusErrorField(errorContents);
+            this.focusErrorField(errorContents,true);
           }
         }
         this.isShowSpinner = false;
@@ -632,50 +791,75 @@
       focusErrorField(errorContents) {
         let firstTime = true // Flag để chọn trường đầu tiên
         let dateInput = ['DateOfBirth', 'IdentityDate', 'JoinDate'];
-        let inputTableFieldList = ["CoefficientsSalary"];
+        let inputTableFieldList = ["CoefficientsSalary", "Subsidy", "SocialInsuranceCost"];
+
+        let input = null;
         for (let i = 0; i < errorContents.length; i++) {
           if (errorContents[i].ignored) continue;
+
+          let contentError = "";
+          if (errorContents[i].type != null) {
+            contentError = errorContents[i].content[errorContents[i].type];
+          } else {
+            contentError = errorContents[i].content;
+          }
+
           // Kiểm tra các component
           if (dateInput.includes(errorContents[i].key)) {
+            input = this.$refs[errorContents[i].key].$el.querySelector('input');
             // DatePick component
             if (firstTime) {
-              this.$refs[errorContents[i].key].$el.querySelector('input').focus(); // Focus input
+              input.focus(); // Focus input
               firstTime = false;
             }
-            this.$refs[errorContents[i].key].isError = true;
-            this.$refs[errorContents[i].key].isDisplayToolTip = true;
+            let datePick = this.$refs[errorContents[i].key];
+            datePick.isError = true;
+            datePick.isDisplayToolTip = true;
           } else if (inputTableFieldList.includes(errorContents[i].key)) {
+            
+            // input trong bảng
+            input = this.$refs["formSalaryTable"].$refs[errorContents[i].ref][0].$el.querySelector('input');
+            let inputComponent = this.$refs["formSalaryTable"].$refs[errorContents[i].ref][0];
             if (firstTime) {
-              this.$refs["formSalaryTable"].$refs[errorContents[i].ref][0].$el.querySelector('input').blur();
-              setTimeout(() => {
-                this.$refs["formSalaryTable"].$refs[errorContents[i].ref][0].$el.querySelector('input').focus();
-                this.$refs["formSalaryTable"].$refs[errorContents[i].ref][0].isError = true;
-                this.$refs["formSalaryTable"].$refs[errorContents[i].ref][0].isDisplayToolTip = true;
-              }, 50)
-
+              input.blur();
+              inputComponent.isDisplayToolTip = true;
+              input.focus();
               firstTime = false;
             }
-
+            // Thiết lập lỗi cho input trong form
+            setTimeout(() => {
+              inputComponent.isError = true;
+              inputComponent.errorContentData = contentError;
+              inputComponent.lockError = true;
+            }, 50)
           } else if (this.$refs[errorContents[i].key].$refs.inputCombobox != null) {
             // Combobox Component
+            input = this.$refs[errorContents[i].key].$refs.inputCombobox.$refs.input;
+            let inputComponent = this.$refs[errorContents[i].key].$refs.inputCombobox;
             if (firstTime) {
-              this.$refs[errorContents[i].key].$refs.inputCombobox.$refs.input.focus(); // Focus input
+              input.focus(); // Focus input
               firstTime = false;
             }
-            this.$refs[errorContents[i].key].$refs.inputCombobox.isError = true; // hiện lỗi trường dữ liệu
-            this.$refs[errorContents[i].key].$refs.inputCombobox.isDisplayToolTip = true; // hiển thị tooltip
-            this.$refs[errorContents[i].key].$refs.inputCombobox.isChange = true;
+            inputComponent.isError = true; // hiện lỗi trường dữ liệu
+            inputComponent.isDisplayToolTip = true; // hiển thị tooltip
+            inputComponent.tooltipContentData = contentError;
+            inputComponent.isChange = true;
             true; // trạng thái thay đổi dữ liệu = true
           } else {
             // Input Component
+            input = this.$refs[errorContents[i].key].$refs.input;
+            let inputComponent = this.$refs[errorContents[i].key];
             if (firstTime) {
-              this.$refs[errorContents[i].key].$refs.input.focus(); // Focus input
+              input.focus(); // Focus input
               firstTime = false;
             }
-            if (this.$refs[errorContents[i].key].validType != "none") {
-              this.$refs[errorContents[i].key].isChange = true; // trạng thái thay đổi dữ liệu = true
-              this.$refs[errorContents[i].key].isError = true; // hiện lỗi trường dữ liệu
-              this.$refs[errorContents[i].key].isDisplayToolTip = true; // hiển thị tooltip
+            inputComponent.isError = true; // hiện lỗi trường dữ liệu
+            inputComponent.isDisplayToolTip = true; // hiển thị tooltip
+
+            if (inputComponent.noneCheck) {
+              inputComponent.tooltipContentData = contentError
+            } else {
+              inputComponent.errorContentData = contentError
             }
           }
         }
@@ -716,7 +900,6 @@
                 break;
               }
             }
-
           }
           if (check) {
             filteredData.push(element);
@@ -724,20 +907,6 @@
         })
 
         this.$refs["formSalaryTable"].dataTable = filteredData;
-        let newList = [];
-        for (let i = 0; i < filteredData.length; i++) {
-          newList.push(false);
-        }
-        this.$refs["formSalaryTable"].checkedList = [...newList];
-        for (const [key] of Object.entries(this.$refs.formSalaryTable.$refs)) {
-          if (key == "all")
-            continue
-          if (this.$refs.formSalaryTable.$refs[key][0]) {
-            if (this.$refs.formSalaryTable.$refs[key][0].checked) {
-              this.$refs.formSalaryTable.$refs[key][0].click();
-            }
-          }
-        }
       },
       /**
        * Hiện popup close form
@@ -745,7 +914,7 @@
        */
       async displayWarning() {
         let check = await this.checkUnchangeState();
-        if (check) {
+        if (check && !this.checkChangeSubTable()) {
           this.$emit('hideForm');
         } else {
           // Thiết lập thông tin cho popup

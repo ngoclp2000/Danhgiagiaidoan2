@@ -35,9 +35,23 @@
     margin: auto;
 }
 .popup .popup-content{
-    padding: 20px;
+    padding: 15px;
     width: 400px;
     height: 100%;
+}
+.popup .popup-header {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.popup .divide{
+    border-top-width: 1.5px;
+    margin: 0px;
+}
+.popup .popup-header .popup-header-title{
+    font-size: 16px;
+    font-weight: 500;
 }
 .popup .popup-content .divide{
     margin: 0;
@@ -69,9 +83,9 @@
 .popup .popup-content .content-popup .content-popup-msg{
     flex: 85%;
     max-height: 400px;
-    margin-bottom: 32px;
-    padding-left: 16px;
-    padding-top: 12px;
+    padding-top: 5px;
+    margin-bottom: 15px;
+    line-height: 24px;
 }
 .popup .popup-content .content-popup .confirmation{
     background: url('../../../assets/icon/icon-sprites.svg') no-repeat -826px -456px;

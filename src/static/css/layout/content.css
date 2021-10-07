@@ -6,47 +6,56 @@
     width: calc(100% - 178px);
     height: calc(100vh - 48px);
     transition: all 0.3s ease-out;
-    background: #f8f8f8;
+    background: #e5f6e5;
+}
+.salary-content .checkbox-custom:checked+.checkbox-custom-label:after{
+    left: 4.9px !important;
 }
 .salary-content .divide-container{
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
     position: relative;
+    cursor: row-resize;
 }
 .salary-content .divide-container .resize-icon{
     background-size: 23px !important;
     width: 24px !important;
     height: 24px !important;
-    cursor: s-resize;
     position: absolute;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%,-55%);
 }
 .salary-content .divide{
     margin: 0px ;
-    border-top: 2px solid #e0e0e0;
+    border-top: 2.8px solid #e0e0e0;
 }
-.content .main-content{
-    height: calc(100vh - 144px);
-    margin: 0px 30px;
+.employee-content .content .main-content{
+    height: calc(100% - 81px);
+    margin: 0px 15px;
     background-color: #fff;
-    margin-bottom: 20px;
-    box-shadow: rgb(0 0 0 / 15%) 1.95px 1.95px 1.95px 2.6px;
+}
+.salary-content .content .main-content{
+    height: calc(100% - 69px);
+    margin: 0px 15px;
+    background-color: #fff;
 }
 .content .main-content::-webkit-scrollbar-track{
     margin-top: -84px;
 }
 .content .main-content .toolbar-content{
-    padding: 16px 10px;
+    padding: 15px 15px;
     background-color: #ffffff;
+}
+.content .main-content .toolbar-content .filter-bar .filter-left input{
+    width: 250px;
 }
     /* Page title*/
     .content .content-header{
         display: flex;
         justify-content: space-between;
         height: auto;
-        padding: 20px 30px;
-        background-color: #f8f8f8;
+        padding: 15px;
+        background-color: #e5f6e5;
     }
         .content .content-header .title {
             font-size: 24px;

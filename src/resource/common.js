@@ -39,7 +39,7 @@ export const common = {
             deleteData: 'Xóa dữ liệu',
             addData: 'Thêm mới dữ liệu',
             zoom: 'Thu/Phóng',
-            
+            resize: '',
             footerFormButton: {
                 cancel: 'Hủy',
                 save: 'Cất (Ctrl + S)',
@@ -70,21 +70,26 @@ export const common = {
                 empty: 'Tên kỳ lương không được để trống',
             },
             CoefficientsSalary:{
-                empty: "Chỉ số lương không được để trống"
+                empty: "Hệ số lương không được để trống",
+                invalid: "Hệ số lương không hợp lệ"
             },
             Subsidy:{
-                empty: "Trợ cấp không được để trống"
+                empty: "Trợ cấp không được để trống",
+                invalid: "Trợ cấp không hợp lệ"
             },
             SocialInsuranceCost:{
-                empty: "Tiền bảo hiểm không được để trống"
+                empty: "Tiền bảo hiểm không được để trống",
+                invalid: "Tiền bảo hiểm không hợp lệ"
             },
             Month: {
                 empty: 'Tháng không được để trống',
-                noOption: "Dữ liệu [Tháng] không có trong danh mục"
+                noOption: "Dữ liệu [Tháng] không có trong danh mục",
+                duplicate: "Dữ liệu [Tháng] bị trùng, vui lòng nhập lại"
             },
             Year: {
                 empty: 'Năm không được để trống',
-                noOption: "Dữ liệu [Năm] không có trong danh mục"
+                noOption: "Dữ liệu [Năm] không có trong danh mục",
+                duplicate: "Dữ liệu [Năm] bị trùng, vui lòng nhập lại",
             },
             EmployeeCode: {
                 empty: 'Mã không được để trống',
@@ -101,19 +106,26 @@ export const common = {
                 invalid: 'Ngày sinh không đúng định dạng'
             },
             IdentityDate: {
-                invalid: 'Ngày cấp CMND không đúng định dạng'
+                invalid: 'Ngày cấp chứng minh nhân dân không đúng định dạng'
             },
             IdentityNumber: {
-                invalid: 'Số CMND không đúng định dạng'
+                invalid: 'Số chứng minh nhân dân không đúng định dạng',
+                duplicate: 'Số chứng minh nhân dân bị trùng vui lòng nhập lại'
             },
             Email: {
-                invalid: 'Email không đúng định dạng'
+                invalid: 'Email không đúng định dạng',
+                duplicate: 'Email bị trùng vui lòng nhập lại'
             },
             PhoneNumber: {
-                invalid: 'Số điện thoại không đúng định dạng'
+                invalid: 'Số điện thoại không đúng định dạng',
+                duplicate: 'Số điện thoại bị trùng vui lòng nhập lại'
             },
             TelephoneNumber: {
                 invalid: 'Số điện thoại cố định không đúng định dạng'
+            },
+            BankAccountNumber:{
+                invalid: 'Số tài khoản ngân hàng không đúng đúng định dạng',
+                duplicate: 'Số tài khoản ngân hàng bị trùng vui lòng nhập lại'
             }
         },
         navbarItems: [{

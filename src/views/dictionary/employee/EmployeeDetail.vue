@@ -7,16 +7,7 @@
             <div class="sticky">
                 <div class="header-form-left">
                     <div class="title">{{title}}</div>
-                    <div class="option-type">
-                        <input id="toggleCustomer" class="checkbox-custom" name="checkbox-1"
-                            @click="isCustomer = !isCustomer" type="checkbox">
-                        <label for="toggleCustomer" class="checkbox-custom-label">
-                            {{formFieldTitle['IsCustomer']}}</label>
-                        <input id="toggleSupplier" class="checkbox-custom" name="checkbox-2"
-                            @click="isSuppiler = !isSuppiler" type="checkbox">
-                        <label for="toggleSupplier"
-                            class="checkbox-custom-label">{{formFieldTitle['IsSupplier']}}</label>
-                    </div>
+
                 </div>
                 <div class="m-btn-list">
                     <div @click="displayWarning()" class="m-btn-close" v-tooltip="tooltipContent['closeButton']">
@@ -27,13 +18,13 @@
             <div class="employee-detail-content" ref="employeeContent">
                 <div class="upper-part">
                     <div class="general-information">
-                        <div class="half-w pr20">
+                        <div class="half-w pr15">
                             <div class="display-flex">
                                 <div class="input-information w2p5">
                                     <div class="name-information">
                                         {{formFieldTitle['EmployeeCode']}} <span style="color: red;">*</span>
                                     </div>
-                                    <BaseInput tabindex="1" maxlength="20" ref="EmployeeCode"
+                                    <BaseInput :tabindex="1" :maxlength="20" ref="EmployeeCode"
                                         classList="user-input required" type="text" refType="employeeCode"
                                         name="EmployeeCode" validType="required"
                                         @bindingDataInput="bindingDataInput('EmployeeCode',$refs['EmployeeCode'].inputContent)" />
@@ -42,8 +33,8 @@
                                     <div class="name-information">
                                         {{formFieldTitle['EmployeeName']}} <span style="color: red;">*</span>
                                     </div>
-                                    <BaseInput tabindex="2" ref="EmployeeName" classList="user-input required"
-                                        type="text" validType="required" maxlength="100" name="EmployeeName"
+                                    <BaseInput :tabindex="2" ref="EmployeeName" classList="user-input required"
+                                        type="text" validType="required" :maxlength="100" name="EmployeeName"
                                         formatType="name"
                                         @bindingDataInput="bindingDataInput('EmployeeName',$refs['EmployeeName'].inputContent)" />
                                 </div>
@@ -52,25 +43,25 @@
                                 <div class="name-information">
                                     {{formFieldTitle['DepartmentName']}} <span style="color: red;">*</span>
                                 </div>
-                                <BaseCombobox tabindex="3" :dataCombobox="$store.state.data.department"
+                                <BaseCombobox :tabindex="3" :dataCombobox="$store.state.data.department"
                                     ref="DepartmentName" name="DepartmentName" class="cbo select-container full-w"
-                                    dataType="department" validType="required" maxlength="255"
+                                    dataType="department" validType="required" :maxlength="255"
                                     @bindingDataInput="bindingDataInput('DepartmentName',$refs['DepartmentName'].inputContent)" />
                             </div>
                             <div class="input-information full-w">
                                 <div class="name-information">
                                     {{formFieldTitle['EmployeePosition']}}
                                 </div>
-                                <BaseInput tabindex="4" ref="EmployeePosition" classList="user-input required full-w"
-                                    type="text" name="EmployeePosition" maxlength="255"
+                                <BaseInput :tabindex="4" ref="EmployeePosition" classList="user-input required full-w"
+                                    type="text" name="EmployeePosition" :maxlength="255"
                                     @bindingDataInput="bindingDataInput('EmployeePosition',$refs['EmployeePosition'].inputContent)" />
                             </div>
                             <div class="input-information full-w" v-if="isCustomer || isSuppiler">
                                 <div class="name-information">
                                     {{formFieldTitle['GroupName']}}
                                 </div>
-                                <BaseCombobox tabindex="12" ref="GroupName" class="cbo select-container full-w"
-                                    dataType="position" name="GroupName" maxlength="255"
+                                <BaseCombobox :tabindex="12" ref="GroupName" class="cbo select-container full-w"
+                                    dataType="position" name="GroupName" :maxlength="255"
                                     @bindingDataInput="bindingDataInput('GroupName',$refs['GroupName'].inputContent)" />
                             </div>
                         </div>
@@ -80,7 +71,7 @@
                                     <div class="name-information">
                                         {{formFieldTitle['DateOfBirth']}}
                                     </div>
-                                    <BaseDatePick tabindex="5" ref="DateOfBirth" name="DateOfBirth" maxlength="10"
+                                    <BaseDatePick :tabindex="5" ref="DateOfBirth" name="DateOfBirth" :maxlength="10"
                                         @bindingDataInput="bindingDataInput('DateOfBirth',$refs['DateOfBirth'].inputContent)" />
                                 </div>
                                 <div class="input-information w3p5 mr0">
@@ -90,7 +81,7 @@
                                     <div class="radio-container" ref="GenderName">
                                         <label class="container" v-for="(element,index) in gender" :key="index">
                                             {{element.content}}
-                                            <input tabindex="6" @change="changeGenderName($event)" type="radio"
+                                            <input :tabindex="6" @change="changeGenderName($event)" type="radio"
                                                 :value="element.content" :checked="element.value == 0" name="radio">
                                             <span class="checkmark"></span>
                                         </label>
@@ -102,7 +93,7 @@
                                     <div class="name-information">
                                         {{formFieldTitle['IdentityNumber']}}
                                     </div>
-                                    <BaseInput tabindex="9" maxlength="20" ref="IdentityNumber"
+                                    <BaseInput :tabindex="9" :maxlength="20" ref="IdentityNumber"
                                         classList="user-input required" type="text" refType="identity"
                                         validType="identification" name="IdentityNumber"
                                         @bindingDataInput="bindingDataInput('IdentityNumber',$refs['IdentityNumber'].inputContent)" />
@@ -111,7 +102,7 @@
                                     <div class="name-information">
                                         {{formFieldTitle['IdentityDate']}}
                                     </div>
-                                    <BaseDatePick tabindex="10" ref="IdentityDate" name="IdentityDate" maxlength="10"
+                                    <BaseDatePick :tabindex="10" ref="IdentityDate" name="IdentityDate" :maxlength="10"
                                         @bindingDataInput="bindingDataInput('IdentityDate',$refs['IdentityDate'].inputContent)" />
                                 </div>
                             </div>
@@ -119,7 +110,7 @@
                                 <div class="name-information">
                                     {{formFieldTitle['IdentityPlace']}}
                                 </div>
-                                <BaseInput tabindex="11" maxlength="255" ref="IdentityPlace"
+                                <BaseInput :tabindex="11" :maxlength="255" ref="IdentityPlace"
                                     classList="user-input required" type="text" name="IdentityPlace"
                                     @bindingDataInput="bindingDataInput('IdentityPlace',$refs['IdentityPlace'].inputContent)" />
                             </div>
@@ -127,7 +118,7 @@
                                 <div class="name-information">
                                     {{formFieldTitle['AccountDebtReceive']}}
                                 </div>
-                                <BaseInput tabindex="1" maxlength="20" ref="AccountDebtReceive"
+                                <BaseInput :tabindex="1" :maxlength="20" ref="AccountDebtReceive"
                                     classList="user-input required" type="text" refType="employeeCode"
                                     name="AccountDebtReceive"
                                     @bindingDataInput="bindingDataInput('AccountDebtReceive',$refs['AccountDebtReceive'].inputContent)" />
@@ -136,7 +127,7 @@
                                 <div class="name-information">
                                     {{formFieldTitle['AccountDebtPay']}}
                                 </div>
-                                <BaseInput tabindex="1" maxlength="14" ref="AccountDebtPay"
+                                <BaseInput :tabindex="1" :maxlength="14" ref="AccountDebtPay"
                                     classList="user-input required" type="text" refType="employeeCode"
                                     name="AccountDebtPay"
                                     @bindingDataInput="bindingDataInput('AccountDebtPay',$refs['AccountDebtPay'].inputContent)" />
@@ -150,8 +141,8 @@
                         <div class="name-information">
                             {{formFieldTitle['Address']}}
                         </div>
-                        <BaseInput tabindex="15" ref="Address" classList="user-input required " type="text"
-                            name="Address" maxlength="255"
+                        <BaseInput :tabindex="15" ref="Address" classList="user-input required " type="text"
+                            name="Address" :maxlength="255"
                             @bindingDataInput="bindingDataInput('Address',$refs['Address'].inputContent)" />
                     </div>
                     <div class="display-flex">
@@ -159,24 +150,24 @@
                             <div class="name-information">
                                 {{formFieldTitle['PhoneNumber']}}
                             </div>
-                            <BaseInput tabindex="16" ref="PhoneNumber" classList="user-input  " type="text" refType=""
-                                validType="number" name="PhoneNumber" maxlength="20"
+                            <BaseInput :tabindex="16" ref="PhoneNumber" classList="user-input  " type="text" refType=""
+                                validType="number" name="PhoneNumber" :maxlength="20"
                                 @bindingDataInput="bindingDataInput('PhoneNumber',$refs['PhoneNumber'].inputContent)" />
                         </div>
                         <div class="input-information w1p3 ">
                             <div class="name-information">
                                 {{formFieldTitle['TelephoneNumber']}}
                             </div>
-                            <BaseInput tabindex="17" ref="TelephoneNumber" classList="user-input  " type="text"
-                                refType="" validType="number" name="TelephoneNumber" maxlength="20"
+                            <BaseInput :tabindex="17" ref="TelephoneNumber" classList="user-input  " type="text"
+                                refType="" validType="number" name="TelephoneNumber" :maxlength="20"
                                 @bindingDataInput="bindingDataInput('TelephoneNumber',$refs['TelephoneNumber'].inputContent)" />
                         </div>
                         <div class="input-information w1p3 mr0">
                             <div class="name-information">
                                 {{formFieldTitle['Email']}}
                             </div>
-                            <BaseInput tabindex="18" ref="Email" classList="user-input  " type="text" refType=""
-                                validType="email" name="Email" maxlength="100"
+                            <BaseInput :tabindex="18" ref="Email" classList="user-input  " type="text" refType=""
+                                validType="email" name="Email" :maxlength="100"
                                 @bindingDataInput="bindingDataInput('Email',$refs['Email'].inputContent)" />
                         </div>
                     </div>
@@ -185,24 +176,24 @@
                             <div class="name-information">
                                 {{formFieldTitle['BankAccountNumber']}}
                             </div>
-                            <BaseInput tabindex="19" ref="BankAccountNumber" classList="user-input" type="text"
-                                name="BankAccountNumber" maxlength="20" validType="number"
+                            <BaseInput :tabindex="19" ref="BankAccountNumber" classList="user-input" type="text"
+                                name="BankAccountNumber" :maxlength="20" validType="number"
                                 @bindingDataInput="bindingDataInput('BankAccountNumber',$refs['BankAccountNumber'].inputContent)" />
                         </div>
                         <div class="input-information w1p3 ">
                             <div class="name-information">
                                 {{formFieldTitle['BankName']}}
                             </div>
-                            <BaseInput tabindex="20" ref="BankName" classList="user-input required " type="text"
-                                name="BankName" maxlength="255"
+                            <BaseInput :tabindex="20" ref="BankName" classList="user-input required " type="text"
+                                name="BankName" :maxlength="255"
                                 @bindingDataInput="bindingDataInput('BankName',$refs['BankName'].inputContent)" />
                         </div>
                         <div class="input-information w1p3 mr0">
                             <div class="name-information">
                                 {{formFieldTitle['BankBranchName']}}
                             </div>
-                            <BaseInput tabindex="21" ref="BankBranchName" classList="user-input required " type="text"
-                                name="BankBranchName" maxlength="255"
+                            <BaseInput :tabindex="21" ref="BankBranchName" classList="user-input required " type="text"
+                                name="BankBranchName" :maxlength="255"
                                 @bindingDataInput="bindingDataInput('BankBranchName',$refs['BankBranchName'].inputContent)" />
                         </div>
                     </div>
@@ -212,10 +203,10 @@
 
                         </div>
                         <div class="footer-right">
-                            <BaseButton tabindex="22" @click="$emit('hideForm')" classList="cancel m-second-btn"
+                            <BaseButton :tabindex="22" @click="$emit('hideForm')" classList="cancel m-second-btn"
                                 :btnText="footerFormButtonContent['cancel']" class="px-3"
                                 :tooltipContent="tooltipContent['footerFormButton']['cancel']" />
-                            <BaseButton tabindex="23" @click="storeInformation(false)"
+                            <BaseButton :tabindex="23" @click="storeInformation(false)"
                                 :btnText="footerFormButtonContent['save']" classList="m-primary-btn"
                                 :tooltipContent="tooltipContent['footerFormButton']['save']" />
                         </div>
@@ -254,8 +245,9 @@
             await this.getDepartmentData();
             this.$refs.DepartmentName.setData(this.$store.state.data.department.map(a => Object.assign({}, a)),
                 false);
-            this.$refs.DepartmentName.init(this.currentEmployee["DepartmentName"]);
-            
+            if (this.statusMode != STATUSMODE.ADD)
+                this.$refs.DepartmentName.init(this.currentEmployee["DepartmentName"]);
+
             // Khởi tạo giá trị radio button cho dữ liệu
             let radios = document.querySelectorAll('input[name=radio]');
             if (Array.from(radios).filter(
@@ -268,7 +260,6 @@
             if (this.statusMode != STATUSMODE.EDIT) {
                 this.getNewEmployeeCode();
             }
-            this.$refs.EmployeeCode.$refs.input.focus() // Focus EmployeeCode input
 
             // Đưa tabindex về đầu tiên khi tabindex cuối cùng
             let tabIndexElement = this.$refs["employeeContent"].querySelectorAll('input, button');
@@ -280,14 +271,17 @@
                 }
             })
             // Đưa tabindex về cuối khi shift tab tabindex đầu tiên
-            let tabIndexField = this.$refs["employeeContent"].querySelectorAll('input');
-            let lastTeabIndexField = tabIndexField[tabIndexField.length - 1];
+            //let tabIndexField = this.$refs["employeeContent"].querySelectorAll('input');
+            //let lastTeabIndexField = tabIndexField[tabIndexField.length - 1];
             this.$refs.EmployeeCode.$refs.input.addEventListener('keydown', (e) => {
                 if ((e.which === 9 && e.shiftKey)) {
                     e.preventDefault();
-                    lastTeabIndexField.focus() // Focus EmployeeCode input
+                    lastIndex.focus() // Focus EmployeeCode input
                 }
             })
+            setTimeout(() => {
+                this.$refs.EmployeeCode.$refs.input.focus() // Focus EmployeeCode input
+            },150);
         },
         data: () => {
             return {
@@ -329,7 +323,7 @@
                     let res = await EmployeeAPI.getNewEmployeeCode();
                     // Gán dữ liệu cho ô input code
                     this.$refs.EmployeeCode.init(res.data)
-                    this.keepingEmployee.EmployeeCode = res.data;
+                    // this.keepingEmployee.EmployeeCode = res.data;
                     this.isShowSpinner = false;
                 } catch (error) {
                     // Thay đổi nội dung popup sau đó hiển thị
@@ -429,13 +423,11 @@
                     if (!this.$refs[key] || (this.$refs[key].inputContent == null && this.$refs[key].date == null))
                         continue;
                     let value = this.$refs[key].inputContent || this.$refs[key].date;
-
                     //let content = "" // Lưu nội dung của lỗi hiện tại
                     // Nếu lỗi hoặc trông thì sẽ gán lỗi
                     let requiredField = ["EmployeeCode", "EmployeeName", "DepartmentName"]
                     if (requiredField.includes(key) && (value == null || value == "")) {
-
-                        let content = convertTextEmployee[key]['empty']
+                        let content = convertTextEmployee[key]['empty'];
                         this.$refs[key].isError = true;
                         // Nếu có lỗi thì sẽ đẩy vào mảng lỗi
                         errorContents.push({
@@ -488,6 +480,30 @@
                                 key,
                                 content,
                             })
+                        } else {
+                            // Các trường dữ liệu khác
+                            let inputCombobox = this.$refs[key].$refs.inputCombobox;
+                            if (inputCombobox != null) {
+                                inputCombobox.$refs.input.blur();
+                                if (inputCombobox.isError) {
+                                    let content = convertTextEmployee[key]['invalid'];
+                                    errorContents.push({
+                                        key,
+                                        content
+                                    })
+                                }
+                            } else {
+                                if (this.$refs[key].$refs.input) {
+                                    this.$refs[key].validateContent();
+                                    if (this.$refs[key].isError) {
+                                        let content = convertTextEmployee[key]['invalid'];
+                                        errorContents.push({
+                                            key,
+                                            content
+                                        })
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -529,18 +545,20 @@
                                     .currentEmployee);
                                 if (res.data.MISACode == MISACODE.NotValid) {
                                     // Validate lỗi nhưng mà đề bài này k cần đến
+                                    let convertText = this.resource[this.$browserLocale]['common'][
+                                        'dictionaryError'
+                                    ];
+                                    // Validate lỗi nhưng mà đề bài này k cần đến
                                     let arrError = res.data.Message;
+                                    let errorContents = [];
                                     arrError.forEach(async (element) => {
-                                        let index = await this.$store.dispatch('randomText', 4)
-                                        let content = element.usrMsg
-                                        let type = "error"
-                                        let payloadToast = {
-                                            content,
-                                            type,
-                                            index
-                                        }
-                                        this.$store.dispatch('createToast', payloadToast)
+                                        errorContents.push({
+                                            content: convertText[element.fieldName],
+                                            key: element.fieldName,
+                                            type: element.type
+                                        })
                                     });
+                                    this.focusErrorField(errorContents, true);
                                 } else if (res.data.MISACode == MISACODE.Success) {
                                     // Thành công
                                     let index = await this.$store.dispatch('randomText', 4)
@@ -582,18 +600,20 @@
                                 let res = await EmployeeAPI.createNewData(this.currentEmployee);
                                 // Kiểm tra mã code tương tự sửa
                                 if (res.data.MISACode == MISACODE.NotValid) {
+                                    let convertText = this.resource[this.$browserLocale]['common'][
+                                        'dictionaryError'
+                                    ];
+                                    // Validate lỗi nhưng mà đề bài này k cần đến
                                     let arrError = res.data.Message;
+                                    let errorContents = [];
                                     arrError.forEach(async (element) => {
-                                        let index = await this.$store.dispatch('randomText', 4)
-                                        let content = element.usrMsg
-                                        let type = "error"
-                                        let payloadToast = {
-                                            content,
-                                            type,
-                                            index
-                                        }
-                                        this.$store.dispatch('createToast', payloadToast)
+                                        errorContents.push({
+                                            content: convertText[element.fieldName],
+                                            key: element.fieldName,
+                                            type: element.type
+                                        })
                                     });
+                                    this.focusErrorField(errorContents, true);
                                 } else if (res.data.MISACode == MISACODE.Success) {
                                     let index = await this.$store.dispatch('randomText', 4)
                                     let type = "success";
@@ -628,7 +648,7 @@
                             }
                         }
                     } else {
-                        this.focusErrorField(errorContents);
+                        this.focusErrorField(errorContents,true);
                     }
                 }
                 this.isShowSpinner = false;
@@ -638,10 +658,19 @@
              * người dùng tiếp tục nhập lại
              * Created By TBN (26/7/2021)
              */
-            focusErrorField(errorContents) {
+            focusErrorField(errorContents, lockError) {
                 let firstTime = true // Flag để chọn trường đầu tiên
-                let dateInput = ['DateOfBirth', 'IdentityDate', 'JoinDate']
+                let dateInput = ['DateOfBirth', 'IdentityDate', 'JoinDate'];
                 for (let i = 0; i < errorContents.length; i++) {
+                    if (errorContents[i].ignored) continue;
+
+                    let contentError = "";
+                    if (errorContents[i].type != null) {
+                        contentError = errorContents[i].content[errorContents[i].type];
+                    } else {
+                        contentError = errorContents[i].content;
+                    }
+
                     // Kiểm tra các component
                     if (dateInput.includes(errorContents[i].key)) {
                         // DatePick component
@@ -649,28 +678,35 @@
                             this.$refs[errorContents[i].key].$el.querySelector('input').focus(); // Focus input
                             firstTime = false;
                         }
-                        this.$refs[errorContents[i].key].isError = true;
-                        this.$refs[errorContents[i].key].isDisplayToolTip = true;
+                        let dataComponent = this.$refs[errorContents[i].key];
+                        dataComponent.isError = true;
+                        dataComponent.isDisplayToolTip = true;
                     } else if (this.$refs[errorContents[i].key].$refs.inputCombobox != null) {
                         // Combobox Component
                         if (firstTime) {
+                            this.$refs[errorContents[i].key].$refs.inputCombobox.$refs.input.blur();
                             this.$refs[errorContents[i].key].$refs.inputCombobox.$refs.input.focus(); // Focus input
                             firstTime = false;
                         }
-                        this.$refs[errorContents[i].key].$refs.inputCombobox.isError = true; // hiện lỗi trường dữ liệu
-                        this.$refs[errorContents[i].key].$refs.inputCombobox.isDisplayToolTip = true // hiển thị tooltip
-                        this.$refs[errorContents[i].key].$refs.inputCombobox.isChange = true;
-                        true; // trạng thái thay đổi dữ liệu = true
+                        let inputCombobox = this.$refs[errorContents[i].key].$refs.inputCombobox;
+                        inputCombobox.isError = true; // hiện lỗi trường dữ liệu
+                        inputCombobox.isDisplayToolTip = true; // hiển thị tooltip
+                        inputCombobox.tooltipContentData = contentError;
+                        inputCombobox.lockError = lockError;
                     } else {
+                        let inputComponent = this.$refs[errorContents[i].key];
                         // Input Component
+                        inputComponent.isError = true; // hiện lỗi trường dữ liệu
+                        inputComponent.isDisplayToolTip = true; // hiển thị tooltip\
+                        inputComponent.lockError = lockError;
+                        if (inputComponent.noneCheck) {
+                            inputComponent.tooltipContentData = contentError
+                        } else {
+                            inputComponent.errorContentData = contentError
+                        }
                         if (firstTime) {
                             this.$refs[errorContents[i].key].$refs.input.focus(); // Focus input
                             firstTime = false;
-                        }
-                        if (this.$refs[errorContents[i].key].validType != "none") {
-                            this.$refs[errorContents[i].key].isChange = true; // trạng thái thay đổi dữ liệu = true
-                            this.$refs[errorContents[i].key].isError = true; // hiện lỗi trường dữ liệu
-                            this.$refs[errorContents[i].key].isDisplayToolTip = true; // hiển thị tooltip
                         }
                     }
                 }

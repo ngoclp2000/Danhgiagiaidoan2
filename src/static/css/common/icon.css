@@ -4,27 +4,46 @@
     background-position: calc(100% - 10px) center;
     background-size: 19px;
 }
-.rotate-X{
-    transform : rotateX(180deg);
+
+.rotate-X {
+    transform: rotateX(180deg);
 }
-.add-icon{
+
+.add-icon {
     background: url('../../../assets/icon/add.svg') no-repeat;
 }
-.delete-icon{
+
+.delete-icon {
     background: url('../../../assets/icon/delete.svg') no-repeat;
 }
-.refresh-icon{
+
+.refresh-icon {
     background: url('../../../assets/icon/icon-sprites.svg') no-repeat -423px -201px;
 }
-.edit-icon{
+
+.edit-icon {
     background: url('../../../assets/icon/edit.svg') no-repeat;
 }
-.duplicate-icon{
+
+.duplicate-icon {
     background: url('../../../assets/icon/duplicate.svg') no-repeat;
 }
-.zoom-icon{
-    
+
+.zoom-icon {
+    background: url('../../../assets/icon/zoom-directions.svg') no-repeat;
+    background-size: 23px !important;
+    width: 24px !important;
+    height: 24px !important;
+    cursor: pointer;
+    transform: rotate(45deg);
 }
-.resize-icon{
-    background: url('../../../assets/icon/vertical-resizing-option.svg') no-repeat;
+.collapse-icon {
+    background: url('../../../assets/icon/collapse.svg') no-repeat !important;
+    background-size: 23px !important;
+    width: 24px !important;
+    height: 24px !important;
+    cursor: pointer;
+}
+.resize-icon {
+    background: url('../../../assets/icon/row-reverse.svg') no-repeat;
 }

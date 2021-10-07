@@ -1,7 +1,7 @@
 <template>
     <div class="grid-container" :class="classListGridContainer">
-        <div class="grid" :class="classListGrid">
-            <table :class="type">
+        <div class="grid" :class="{classListGrid,'border-bbbbbb' : dataTable.length == 0}">
+            <table :class="{type}">
                 <thead>
                     <tr>
                         <!-- <th class="white-16"></th> -->
@@ -10,13 +10,13 @@
                             class="main-th">
                             <div class="count">
                                 <input ref="all" :id="'all '+ type" class="checkbox-custom" :class="type"
-                                    name="checkbox-1" @click="toggleCheckedAll($event)" type="checkbox">
+                                    name="checkbox-1" @click="toggleCheckedAll($event)" type="checkbox" :checked="checkToggleCheckBox()">
                                 <label :for="'all '+ type" class="checkbox-custom-label"
-                                :class="{'active-checkbox':isCheckAll}"
+                                :class="{'active-checkbox': checkToggleCheckBox()}"
                                 ></label>
                             </div>
                         </th>
-                        <th class="range-td" v-tooltip="'Số thứ tự'" style="width: 100px; text-align: center">
+                        <th class="range-td" v-tooltip="'Số thứ tự'" style="width: 50px; text-align: right">
                             STT
                         </th>
                         <th class="main-th" v-for="(th,index) in ths"
@@ -36,33 +36,33 @@
                 <tbody>
                     <tr tabindex="0" @dblclick="dbClickRow(data,$event)" :ref="'row' + index"
                         @click="clickChoosingRow($event,index,data)" @keydown="keyboardEventSelectRow($event,index)"
-                        :class="{'bg-selected': checkedList[index]}"
+                        :class="{'bg-selected': isSelected(data)}"
                         @contextmenu.prevent="contextMenuEvent($event,index)" v-for="(data,index) in dataTable"
                         :key="index">
                         <td v-if="!disableCheckBox"
                             style="width: 40px; min-width: 40px; max-width: 40px;position: sticky; left:0px; z-index:2; "
-                            class="main-td" :class="{'bg-selected': checkedList[index]}">
+                            class="main-td" :class="{'bg-selected': isSelected(data)}">
                             <div class="count" style="margin-right: 5px" v-if="isReady">
                                 <input :ref="'checkbox' + index" :id=" type + ' ' + index" class="checkbox-custom"
-                                    :name="type" @click="clickCheckBox($event,index,data)" type="checkbox">
+                                    :name="type" @click="clickCheckBox($event,index,data)" type="checkbox" :checked="isSelected(data)">
                                 <label :for=" type + ' ' + index" class="checkbox-custom-label"
-                                    :class="{'active-checkbox':checkedList[index]}"></label>
+                                    :class="{'active-checkbox':isSelected(data)}"></label>
                             </div>
                             <div style="border-radius: 0px !important;" class="skeleton" v-if="!isReady"></div>
                         </td>
 
-                        <td class="main-td" style="width: 100px; text-align: center">
+                        <td class="main-td" style="width: 50px; text-align: right">
                             <div v-if="isReady">{{index+1}}</div>
                             <div class="skeleton" v-if="!isReady"></div>
                         </td>
 
                         <td class="main-td" :fieldName="th.fieldName" v-for="(th,index1) in ths" :key="index1"
                             :style="{textAlign: th.textAlign || 'left',width: th.colWidth || '150px'}">
-                            <div v-if="isReady && !th.isInput">{{getDataTable(data,th.fieldName,th.dependent,index)}}
+                            <div class="value" v-if="isReady && !th.isInput">{{getDataTable(data,th.fieldName,th.dependent,index)}}
                             </div>
                             <BaseInput :validType="th.validType" :name="th.fieldName"
-                                :initialValue="getDataTable(data,th.fieldName)"
-                                :ref="th.fieldName + index"
+                                :initialValue="getDataTable(data,th.fieldName).toString()"
+                                :ref="th.fieldName + index" :textAlign="th.textAlign"
                                 @updateInputSubTable="updateInputSubTable(index,th.fieldName,th.type)"
                                 :indexData="index" :formatType="th.type" v-if="th.isInput && isReady" />
                             <div class="skeleton" v-if="!isReady"></div>
@@ -70,7 +70,7 @@
 
                         <td v-if="displayFunction" class="main-td"
                             style="width: 120px; min-width: 120px; text-align: center; position: sticky; right: 0px;"
-                            :class="{'bg-selected': checkedList[index]}">
+                            :class="{'bg-selected': isSelected(data)}">
                             <div class="skeleton" v-if="!isReady"></div>
                             <div class="function" v-if="isReady">
                                 <div class="edit-icon" v-if="checkFunctionValid('edit')"
@@ -88,29 +88,49 @@
                         </td>
                         <ul class="dropdown-content contextmenu" :class="'contextmenu-' + index"
                             v-if="displayFunctionList[index] && displayFunction">
-                            <li v-for="(element,index) in functionListData" :key="index"
+                            <li v-for="(element,index2) in functionListData" :key="index2"
                                 @click="functionElementClick(data,index,element.key)">
                                 {{element.value}}
                             </li>
                         </ul>
                     </tr>
 
-                    <tr class="summerize" v-if="dataTable.length > 0 && summarizeField"
-                        style="border-bottom: 1px solid #e6e4e4;">
-                        <td v-if="!disableCheckBox"></td>
-                        <td></td>
-                        <td v-for="(th,index1) in ths" :key="index1"
-                            :style="{textAlign: th.textAlign || 'left',width: th.colWidth || '150px'}">
-                            <div :ref="'summerize' + th.fieldName">
-
-                            </div>
-                        </td>
-                        <td v-if="displayFunction"></td>
-                    </tr>
+                    
                 </tbody>
             </table>
+            <div class="no-content" v-if="dataTable.length == 0">
+                        <div class="display-flex" style="flex-direction: column;">
+                            <div class="no-content-img">
+
+                        </div>
+                        <div class="no-content-text">
+                            {{textResource['noContent']}}
+                        </div>
+                        </div>
+                        
+                         <LoadingSpinner v-if="!isReady && dataTable.length > 0" /> 
+            </div>
         </div>
-        <BasePagingBar v-if="totalRecord != 0 && displayPaging" @updatePageSize="updatePageSize"
+        <div class=" summarize-table">
+            <table>
+                <thead>
+                    <tr class="summarize" v-if="dataTable.length > 0 && summarizeField"
+                        style="border-bottom: 1px solid #e6e4e4;">
+                        <th v-if="!disableCheckBox" class="main-table" style="width: 40px; max-width:40px; min-width:40px"></th>
+                        <th class="main-table" style="width: 50px; max-width:50px; min-width:50x"></th>
+                        <th v-for="(th,index1) in ths" :key="index1" class="main-table"
+                            :style="{textAlign: th.textAlign || 'left',width: th.colWidth || '150px'}">
+                            <div :ref="'summarize' + th.fieldName">
+
+                            </div>
+                        </th >
+                        <th v-if="displayFunction" class="main-table" style="width: 120px;  min-width: 120px; text-align: center; z-index: 3; position: sticky; right: 0px;"></th>
+                    </tr>
+                </thead>
+            </table>
+            <LoadingSpinner v-if="!isReady" /> 
+        </div>
+        <BasePagingBar v-if="displayPaging" @updatePageSize="updatePageSize"
             :pageSize="$store.state.data.payload.pageSize" ref="pagingBar" @updatePagination="updatePagination"
             :totalRecord="totalRecord" :maxPageNumber="maxPageNumber" :isReady="isReady" />
     </div>
@@ -121,6 +141,7 @@
     import Common from "../store/common.js"
     import BaseInput from "./BaseInput.vue"
     import BasePagingBar from './BasePagingBar.vue'
+    import LoadingSpinner from './LoadingSpinner.vue'
     export default {
         async created() {
             this.functionListData = this.functionList;
@@ -133,11 +154,19 @@
                     this.$set(this.displayFunctionList, i, false)
                 }
             })
-
+            // Event scroll bảng 1 sẽ scroll bảng phụ
+            let grid = this.$el.querySelector('.grid');
+            if(grid){
+                grid.addEventListener('scroll',()=>{
+                    let summarizeContainer = this.$el.querySelector('.summarize-table');
+                    summarizeContainer.scrollLeft = grid.scrollLeft
+                })
+            }
         },
         components: {
             BaseInput,
-            BasePagingBar
+            BasePagingBar,
+            LoadingSpinner
         },
         destroy() {
             window.removeEventListener('click');
@@ -171,13 +200,16 @@
             'displayPaging': {
                 type: Boolean,
                 default: true,
+            },
+            'keyAttribute':{
+                type: String,
+                default: ""
             }
         },
         data() {
             return {
                 dataTable: [],
                 keepingDataTable: [],
-                checkedList: [],
                 sortDirectionList: [],
                 displayFunctionList: [],
                 selectedList: [],
@@ -190,33 +222,20 @@
                 isShowSpinner: false,
                 maxPageNumber: 0,
                 totalRecord: 0,
-                isCheckAll: false,
             }
         },
         watch: {
+            
             /**
              * Theo dõi trạng thái checkbox toggleAll 
              * Created By TBN (21/8/2021)
              */
-            checkedList() {
-                // Nếu checkbox toggleAll checked mà tắt các nút thành phần thì nút đó tắt theo
-                // Tương tự giống toggAll unchecked
-                if (this.dataTable.length > 0) {
-                    if (!this.$refs['all'].checked && this.checkedList.filter(e => !e).length == 0) {
-                        this.$refs['all'].checked = true;
-                        this.isCheckAll = true;
-                    } else if (this.$refs['all'].checked && this.checkedList.filter(e => !e).length > 0) {
-                        this.$refs['all'].checked = false;
-                        this.isCheckAll = false;
-                    }
-                }
+            selectedList() {
+                this.checkToggleCheckBox();
             },
             dataTable() {
-                if(this.dataTable.length == 0){
-                    if(this.$refs['all'])
-                        this.$refs['all'].checked = false;
-                }
                 this.getSummarizeFieldData();
+                this.checkToggleCheckBox();
             }
         },
         computed: {
@@ -235,12 +254,36 @@
         },
         methods: {
             /**
+             * Hàm kiểm tra xem có chọn hết các dòng hay chưa
+             * Created By TBN(27/9/2021)
+             */
+            checkToggleCheckBox(){
+                // Nếu checkbox toggleAll checked mà tắt các nút thành phần thì nút đó tắt theo
+                // Tương tự giống toggAll unchecked
+                if (this.dataTable.length > 0) {
+                    let arraySelectedKeyAttribute = this.selectedList.map(e=>e[this.keyAttribute]);
+                    let arrayUnSelected = this.dataTable.filter(element => !arraySelectedKeyAttribute.includes(element[this.keyAttribute]) )
+                    if (arrayUnSelected.length == 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            },
+            /**
+             * Hàm xác định xem dữ liệu có được chọn hay không
+             * Created By TBN(27/9/2021)
+             */
+            isSelected(data){
+               let checkArray = this.selectedList.filter(element => element[this.keyAttribute] == data[this.keyAttribute]);
+               return (checkArray.length > 0) ? true : false;
+            },
+            /**
              * Cập nhật dữ liệu phân trang 
              * Created By TBN(26/7/2021)
              */
             async updatePagination(pageNumber) {
                 this.$emit("updatePagination", pageNumber);
-                this.selectedList = [];
             },
             /**
              * Cập nhật kích thước trang
@@ -276,7 +319,7 @@
                         // Duyệt mảng th để tìm trường cần tính tổng hợp
                         this.ths.forEach(element => {
                             if (this.summarizeField.includes(element.fieldName)) {
-                                let div = this.$refs["summerize" + element.fieldName][0];
+                                let div = this.$refs["summarize" + element.fieldName][0];
                                 let result = 0;
                                 // Tính toán trường cần tính trong mảng dữ liệu
                                 this.dataTable.forEach(e =>{
@@ -368,7 +411,6 @@
                     // Thiết lập biến số độ dời khi bấm lên xuống, chỉ số giới hạn khi nhấn nút
                     let shiftAmount = 1,
                         boundIndex = 0;
-                    let arr = [];
                     // Gán lại biến số khi bấm lên hoặc xuống
                     if ($event.keyCode == 38) {
                         shiftAmount = -1;
@@ -391,44 +433,35 @@
                     }
                     // Cập nhật lại trạng thái của các dòng
                     for (let i = 0; i < this.dataTable.length; i++) {
-                        let currentCheckbox = this.$refs["checkbox" + i][0];
                         if ($event.shiftKey) {
                             // Sự kiện nếu nhấn shiftKey thì sẽ chọn những dòng trong khoảng lower và upper
                             if (i >= lowerIndex && i <= upperIndex) {
-                                arr[i] = true;
-                                currentCheckbox.checked = true;
                                 this.changeSelectedData(this.dataTable[i], "add");
                             } else {
-                                arr[i] = false;
-                                currentCheckbox.checked = false;
                                 this.changeSelectedData(this.dataTable[i], "remove");
                             }
                         } else {
                             // Nếu không thì chỉ chọn dòng tiếp theo được trỏ đến
                             if (i == this.selectedIndex + shiftAmount) {
-                                arr[i] = true;
-                                currentCheckbox.checked = true;
                                 this.changeSelectedData(this.dataTable[i], "add");
                             } else {
-                                arr[i] = false;
-                                currentCheckbox.checked = false;
                                 this.changeSelectedData(this.dataTable[i], "remove");
                             }
                         }
                     }
                     // Nếu không bao gồm nút shiftKey thì thay đổi index ban đầu 
                     if (!$event.shiftKey) {
+                        this.$emit("updateSubTable")
                         this.initialIndex = this.selectedIndex + shiftAmount;
                     } else {
                         let scrollAmount = 42;
-                        this.$el.parentElement.scrollBy({
+                        let grid = this.$el.querySelector('.grid');
+                        grid.scrollBy({
                             top: scrollAmount * (shiftAmount)
                         })
                     }
                     // Thay đổi dòng đang được chọn
                     this.selectedIndex += shiftAmount;
-
-                    this.checkedList = arr; //Thay đổi lại danh sách dòng được chọn
                 }
             },
             /**
@@ -453,10 +486,9 @@
              */
             changeSelectedData(data, type) {
                 if (type == "remove")
-                    this.selectedList = this.selectedList.filter(element => JSON.stringify(element) != JSON
-                        .stringify(data))
+                    this.selectedList = this.selectedList.filter(element => element[this.keyAttribute] != data[this.keyAttribute])
                 else {
-                    if (this.selectedList.filter(element => JSON.stringify(element) === JSON.stringify(data))
+                    if (this.selectedList.filter(element => element[this.keyAttribute] == data[this.keyAttribute])
                         .length == 0)
                         this.selectedList.push(data)
                 }
@@ -467,22 +499,14 @@
              */
             deleteEntity(data, index) {
                 //this.$set(this.displayFunctionList, index, false);
-                // Sắp xếp lại dữ liệu
-                let arrDisplayedData = [];
-
                 // Kiểm tra để hiển thị dòng được chọn
                 for (let i = 0; i < this.dataTable.length; i++) {
                     if (i == index) {
-                        arrDisplayedData[i] = true;
-                        this.$refs["checkbox" + i][0].checked = true;
                         this.changeSelectedData(this.dataTable[i], "add");
                     } else {
-                        this.$refs["checkbox" + i][0].checked = false;
-                        arrDisplayedData[i] = false;
                         this.changeSelectedData(this.dataTable[i], "remove");
                     }
                 }
-                this.checkedList = arrDisplayedData;
                 this.$emit("displayConfirmationPopup");
             },
             /**
@@ -512,35 +536,13 @@
              * Created By TBN (25/7/2021)
              */
             toggleCheckedAll($event) {
-                let flag = $event.target.checked; // true = checked, false = unchecked
-                for (const [key, value] of Object.entries(this.dataTable)) {
-                    value
-                    let refValue = "checkbox" + key;
-                    if (this.$refs[refValue][0]) {
-                        if (flag) {
-                            // Nếu mà nút toggleCheckedAll = true thì chỉ những nút chưa checked sẽ được checked
-                            if (!this.$refs[refValue][0].checked) {
-                                this.$refs[refValue][0].checked = true;
-                            }
-                        } else {
-                            // Nếu mà nút toggleCheckedAll = false thì chỉ những nút chưa unchecked sẽ được unchecked
-                            if (this.$refs[refValue][0].checked) {
-                                this.$refs[refValue][0].checked = false;
-                            }
-                        }
-                    }
-                }
                 // Checked toàn bộ
                 let typeChangeList = "add";
                 if (!$event.target.checked) {
-                    this.isCheckAll = false;
                     typeChangeList = "remove";
-                }else{
-                    this.isCheckAll = true;
                 }
                 // Thay đổi trạng thái của dãy checkbox
-                for (let i = 0; i < this.checkedList.length; i++) {
-                    this.checkedList[i] = $event.target.checked;
+                for (let i = 0; i < this.dataTable.length; i++) {
                     this.changeSelectedData(this.dataTable[i], typeChangeList);
                 }
             },
@@ -551,16 +553,11 @@
             clickCheckBox: function ($event, index, data) {
                 // Kiểm tra xem người click chọn hoặc bỏ 
                 // Sau đó cập nhật lại danh sách được chọn
-                this.selectedIndex = index;
-                let arr = [...this.checkedList]
                 if ($event.target.checked) {
                     this.changeSelectedData(data, "add");
-                    arr[index] = true;
                 } else {
                     this.changeSelectedData(data, "remove");
-                    arr[index] = false;
                 }
-                this.checkedList = arr;
             },
             /**
              * Sự kiện chọn dòng trong bảng
@@ -568,6 +565,7 @@
              */
             clickChoosingRow($event, index) {
                 setTimeout(() => {
+                    // Chặn việc chọn dòng khi double click
                     if (this.preventClickRow) {
                         return;
                     }
@@ -578,78 +576,39 @@
                     // Lấy 2 sự kiện bấm nút ctrl, shift
                     let eventCtrlKey = $event.ctrlKey,
                         eventShiftKey = $event.shiftKey;
+                    let notAccept = ["li","label","input"];
                     if ((eventCtrlKey && eventShiftKey) || this.disableCheckBox || !($event.target.classList
                             .contains(
-                                'main-td') || ($event.target
-                                .classList.length == 0 && $event.target.nodeName.toLowerCase() != "li" && $event
-                                .target
-                                .nodeName.toLowerCase() != "label" && $event
-                                .target
-                                .nodeName.toLowerCase() != "input"))) {
+                                'main-td') || $event.target.classList
+                            .contains(
+                                'value') || ($event.target
+                                .classList.length == 0 && !notAccept.includes($event.target.nodeName.toLowerCase())) )) {
                         return; // Trường hợp bấm cả 2 thì bỏ qua
                     } else {
+                        if(index == 0){
+                            this.$emit("changeLockDeleteFirstRecord");
+                        }
                         // Trường hợp bấm bình thường
                         if (!eventCtrlKey && !eventShiftKey) {
-                            let arr = [];
-                            let count = 0;
-                            for (const [key, value] of Object.entries(this.dataTable)) {
-                                value;
-                                let refValue = "checkbox" + key;
-                                let currentCheckbox = this.$refs[refValue][0];
-
-                                if (refValue == "checkbox" + index) {
-                                    // Chuyển trạng thái của dòng được chọn
-                                    if (!currentCheckbox.checked) {
-                                        currentCheckbox.checked = true;
-                                    }
-                                    this.changeSelectedData(this.dataTable[count], "add");
-                                    arr[count++] = true;
-                                } else {
-                                    // Xóa hết dòng hiện tại
-                                    if (currentCheckbox.checked) {
-                                        currentCheckbox.checked = false;
-                                        this.changeSelectedData(this.dataTable[count], "remove");
-                                    }
-                                    arr[count++] = false;
+                            for(let i = 0; i < this.dataTable.length; i++){
+                                if(i == index){
+                                    this.changeSelectedData(this.dataTable[i], "add");
+                                }else{
+                                    this.changeSelectedData(this.dataTable[i], "remove");
                                 }
                             }
-                            this.checkedList = arr;
                             this.$emit("updateSubTable");
                         } else {
                             // Trường hợp có 1 trong 2 nút được bấm
                             if (eventCtrlKey) {
                                 // Trường hợp bấm nút ctrl
-                                let arr = [];
-                                let count = 0;
-                                for (const [key, value] of Object.entries(this.dataTable)) {
-                                    value;
-                                    let refValue = "checkbox" + key;
-                                    let currentCheckbox = this.$refs[refValue][0];
-                                    if (refValue == "checkbox" + index) {
-                                        // Dựa vào trạng thái trước đó để thêm hoặc xóa dữ liệu được chọn(hơi ngược)
-                                        if (!currentCheckbox.checked) {
-                                            this.changeSelectedData(this.dataTable[count], "add");
-                                        } else
-                                            this.changeSelectedData(this.dataTable[count], "remove");
-
-                                        arr[count++] = !currentCheckbox.checked
-                                        currentCheckbox.checked = !currentCheckbox.checked;
-                                    } else {
-                                        // Thêm hoặc xóa dữ liệu dựa vào trạng thái checked 
-                                        if (currentCheckbox.checked) {
-                                            this.changeSelectedData(this.dataTable[count], "add");
-                                            arr[count++] = true;
-                                        } else {
-                                            this.changeSelectedData(this.dataTable[count], "remove");
-                                            arr[count++] = false;
-                                        }
+                                for(let i = 0; i < this.dataTable.length; i++){
+                                    if(i == index || this.isSelected(this.dataTable[i])){
+                                        this.changeSelectedData(this.dataTable[i], "add");
                                     }
                                 }
-                                this.checkedList = arr;
                             } else {
                                 // Trường hợp bấm nút shift
-                                let arr = [];
-                                let count = 0;
                                 // Tìm nút gốc
                                 let indexRoot = 0;
                                 if (this.selectedList.length > 0) {
@@ -670,28 +629,18 @@
                                     lowerIndex = index;
                                     upperIndex = indexRoot;
                                 }
-                                // Thay đổi trạng thái các nút
-                                for (const [key, value] of Object.entries(this.dataTable)) {
-                                    value;
-                                    let refValue = "checkbox" + key;
-                                    let currentCheckbox = this.$refs[refValue][0];
-                                    if (count >= lowerIndex && count <= upperIndex) {
+                                if(indexRoot == 0 || index == 0){
+                                    this.$emit("changeLockDeleteFirstRecord");
+                                }
+                                for(let i = 0 ; i < this.dataTable.length; i++){
+                                    if (i >= lowerIndex && i <= upperIndex) {
                                         // Nếu trong vùng lower và uppper thì chọn và thêm dữ liệu 
-                                        if (!currentCheckbox.checked) {
-                                            currentCheckbox.checked = true;
-                                        }
-                                        this.changeSelectedData(this.dataTable[count], "add");
-                                        arr[count++] = true;
+                                        this.changeSelectedData(this.dataTable[i], "add");
                                     } else {
                                         // Nếu không thì sẽ xóa ra nếu đã được chọn trước đó
-                                        if (currentCheckbox.checked) {
-                                            currentCheckbox.checked = false;
-                                        }
-                                        this.changeSelectedData(this.dataTable[count], "remove");
-                                        arr[count++] = false;
+                                        this.changeSelectedData(this.dataTable[i], "remove");
                                     }
                                 }
-                                this.checkedList = arr;
                             }
                         }
 
@@ -712,7 +661,7 @@
              */
             dbClickRow(data, $event) {
                 this.preventClickRow = true;
-                if ($event.target.classList.contains('main-td') || $event.target.classList.length == 0) {
+                if ($event.target.nodeName.toLowerCase() == "div" || $event.target.classList.contains('main-td') || $event.target.classList.length == 0) {
                     this.$emit('displayFormEdit', data);
                 }
                 setTimeout(() => {
@@ -726,7 +675,7 @@
             async setData(data, totalPage, totalRecord) {
                 this.dataTable = [];
                 this.dataTable = data;
-                this.keepingDataTable = data.map(a => Object.assign({}, a));
+                this.keepingDataTable = data;
                 this.totalRecord = totalRecord;
                 this.maxPageNumber = totalPage;
             },
@@ -737,13 +686,26 @@
             calculateDependentAttribute(payload) {
                 switch (true) {
                     case payload.type.toLocaleLowerCase().includes("salary"): {
+                        if(payload.data.CoefficientsSalary == "" || payload.data.CoefficientsSalary == null){
+                            payload.data.CoefficientsSalary = 0;
+                        }
+                        // Lương cơ bản
                         let basicSalary = 1490000;
-                        let result = parseInt(parseFloat(payload.data.CoefficientsSalary) * basicSalary) + parseInt(
+                        // Tính lương chưa công trừ
+                        let calculatedSalary = parseFloat(payload.data.CoefficientsSalary) * basicSalary;
+                        // Tính lương sau khi cộng trừ thông tin liên quan
+                        let result = calculatedSalary + parseInt(
                             Format
                             .changeToNumber(payload.data
                                 .Subsidy)) - parseInt(Format.changeToNumber(payload.data.SocialInsuranceCost));
+                        result = parseInt(result);
+
+                        let wrongLimit = 1;
+                        // Kiểm tra khoảng sai sau khi tính giá trị
+                        if(this.dataTable[payload.index]["Salary"] - result == wrongLimit || this.dataTable[payload.index]["Salary"] - result == -wrongLimit)
+                            return this.dataTable[payload.index]["Salary"];
+
                         this.dataTable[payload.index]["Salary"] = result;
-                        
                         return result;
                     }
                 }
@@ -772,7 +734,7 @@
                     case "SocialInsuranceCost":
                         return Format.formatMoney(data[fieldName]);
                     case "CoefficientsSalary":{
-                        if(data[fieldName] == 0 || data[fieldName] == ""){
+                        if(!data[fieldName] || data[fieldName] == 0 || data[fieldName] == ""){
                             return "0";
                         }
                         else{

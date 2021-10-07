@@ -2,20 +2,21 @@
     <div v-click-outside="closeDropdown">
         <BaseInput :tabindex="tabindex" @showDropdown="isShow = true" @updateInput="updateInput"
             @filterOption="filterOption" @evtKeyboardChoosingOption="evtKeyboardChoosingOption" :maxlength="maxlength"
-            @resetOption="resetOptions" ref="inputCombobox" classList="combobox user-input"
-            @tabPress="tabPress" iconClass="combobox-icon" type="text" errorContent="Không có dữ liệu đã nhập"
-            :name="name" :contentPlHolder="contentPlHolder"
+            @resetOption="resetOptions" ref="inputCombobox" classList="combobox user-input" @tabPress="tabPress"
+            iconClass="combobox-icon" type="text" errorContent="Không có dữ liệu đã nhập" :name="name"
+            :contentPlHolder="contentPlHolder" :textAlign="textAlign" @blur="blurEvent"
             :validType="validType != null ? 'combobox-' + validType : 'combobox'" :isDisabled="isDisabledInput"
             :isReadyData="isReadyData" :noneCheck="noneCheck" @click="displayDropdown" />
-        <div ref="select" style="z-index:3" v-show="isShow && data.length > 0" class="select-custom"
+        <div ref="select" style="z-index:4" v-show="isShow && data.length > 0" class="select-custom"
             :class="directionDrop">
             <div v-for="(option,index) in data" :key="index" @click="evtMouseChoosingOption(option['content'])"
                 class="option" :class="[option.isPointed ? 'point-option' : '',option.isChosen ?'show-select': '']">
-                <div class="option-content none-pointer" :ref="'option' + index">{{option.content}}</div>
+                <div class="option-content none-pointer" :ref="'option' + index" :style="{'textAlign' : textAlign}">
+                    {{option.content}}</div>
             </div>
         </div>
         <div @click="toggleDropdown"
-            :class="{'rotate-oppositeX':isShow,'waiting-icon': (isReadyData != null && !isReadyData)}"
+            :class="{'rotate-oppositeX':isShow,'waiting-icon': (isReadyData != null && !isReadyData), 'left-position' : textAlign == 'right'} "
             class="icon-container">
             <div class="fas fa-chevron-down icon-input" style="display:none;"></div>
             <div class="icon-input-common"> </div>
@@ -31,9 +32,11 @@
     import BaseInput from "./BaseInput.vue"
     export default {
         props: ['contentPlHolder', 'type', 'dataType', 'isDisabledInput', 'errorContent', 'isSearching', 'tabindex',
-            'directionDrop', 'validType', 'name', 'isReadyData', 'noneCheck', 'maxlength'
+            'directionDrop', 'validType', 'name', 'isReadyData', 'noneCheck', 'maxlength', 'textAlign'
         ],
-        async mounted() {},
+        async mounted() {
+
+        },
         watch: {
             data() {
                 // Tính toán cho việc dropup
@@ -79,6 +82,12 @@
             BaseInput
         },
         methods: {
+            blurEvent(){
+                let check = this.data.filter(element => element.content == this.inputContent);
+                if(check.length == 0 && this.inputContent != ""){
+                    this.$refs["inputCombobox"].isError = true;
+                }                
+            },
             /**
              * Set dữ liệu cho combobox
              * Created by TBN (27/7/2021)
@@ -124,8 +133,11 @@
                 // Sự kiên ẩn hiện dropdown của combobox
                 if (keyCode != 13) {
                     // Nếu là nút lên, xuống thì hiện dropdown và thiết lập ô được chỉ đến
-                    if (this.isShow == false)
-                        this.indexPointedOption = -1
+                    if (this.isShow == false) {
+                        // Nếu trước đó dropdown đang đóng
+                        this.indexPointedOption = 0 // Set option đầu tiên được trỏ đến
+                        this.setPointedOption(this.data[this.indexPointedOption].content)
+                    }
                     this.isShow = true;
                     // this.$nextTick(() => {
                     //     if (!initialvalue) {
@@ -136,7 +148,7 @@
                     // Sự kiên Enter
                     // Toggle dropdown
                     this.isShow = !this.isShow
-                    if(this.data.length == 0) return;
+                    if (this.data.length == 0) return;
                     // Chờ một khoảng thời gian
                     if (this.isShow == false) {
                         // Nếu trước đó dropdown đang hiện
@@ -353,7 +365,7 @@
                     }
                     if (this.$refs.inputCombobox)
                         this.$refs.inputCombobox.active = false;
-                },100)
+                }, 100)
             },
             /**
              * Lọc option theo nội dung người dùng nhập
@@ -362,7 +374,7 @@
             filterOption(content) {
                 let check = content.replace(/\\$/, "");
                 let initialContent = content;
-                content = content.toString().replace('\\','');
+                content = content.toString().replace('\\', '');
                 this.data = this.intialData.filter(element => element.content.toString()
                     .toLowerCase()
                     .search(content.toLowerCase()) != -1 || content == "")
@@ -378,7 +390,7 @@
                 if (this.data.length == 0 || check != initialContent) {
                     this.$refs.inputCombobox.errorContentData = this.dictionaryError[this.name].noOption;
                     this.$refs.inputCombobox.isError = true;
-                    if(check != initialContent) {
+                    if (check != initialContent) {
                         this.data = [];
                     }
                 } else {
@@ -396,6 +408,10 @@
 </script>
 
 <style scoped>
+    .left-position {
+        left: 1px !important;
+    }
+
     .show-image {
         visibility: visible !important;
     }

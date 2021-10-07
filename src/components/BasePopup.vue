@@ -3,30 +3,46 @@
         <div class="popup-layout center-div" ref="layout">
         </div>
         <div class=" popup">
-            <div class="popup-content" ref="popupContent">
-                <div class="content-popup">
-                    <div :class="objectPopUp.type" class="icon-popup">
-                    </div>
-                    <div class="content-popup-msg">
-                        {{objectPopUp.contentPopUp}}
+            <div class="popup-header">
+                <div class="popup-header-title">
+                    Xác nhận
+                </div>
+                <div class="popup-header-btn">
+                    <div class="m-btn-close" @click="cancelButtonClick">
+
                     </div>
                 </div>
-                <div class="divide"></div>
+            </div>
+
+            <div class="divide"></div>
+            <div class="popup-content" ref="popupContent">
+                
+                <div class="content-popup">
+                    <!-- <div :class="objectPopUp.type" class="icon-popup">
+                    </div> -->
+                    <div ref="content" class="content-popup-msg">
+                        
+                    </div>
+                </div>
+                
                 <div class="popup-footer"
                     :class="{ 'flex-center' : numberOfButton == 1,'flex-end' : objectPopUp.type == 'warning-code'}">
                     <div class="popup-footer-left" v-if="objectPopUp.buttonTexts[0] != ''">
                         <BaseButton tabindex="90" 
                             @click="cancelButtonClick" classList="m-btn-default m-second-btn" bgColor="#fff"
-                            textColor="#111111" :btnText="objectPopUp.buttonTexts[0]" ref="secondary" />
+                            textColor="#111111" :btnText="objectPopUp.buttonTexts[0]" ref="secondary" v-if="numberOfButton != 2"/>
                     </div>
                     <div class="popup-footer-right">
+                        <BaseButton tabindex="90" 
+                            @click="cancelButtonClick" classList="m-btn-default m-second-btn" bgColor="#fff"
+                            textColor="#111111" :btnText="objectPopUp.buttonTexts[0]" ref="secondary" v-if="numberOfButton == 2"/>
                         <BaseButton tabindex="90" 
                             @click="subPrimaryButtonClick" v-if="objectPopUp.buttonTexts[1] != ''"
                             classList="m-btn-default m-second-btn" bgColor="#fff" textColor="#111111"
                             :btnText="objectPopUp.buttonTexts[1]" />
                         <BaseButton tabindex="90" 
-                            ref="primary" @keydown.enter="primaryButtonClick" :class="{'mr0' : numberOfButton == 1 }"
-                            @click="primaryButtonClick" classList="m-btn-default m-primary-btn"
+                            ref="primary" @keydown.enter="primaryButtonClick" :class="{'mr0' : numberOfButton == 1}"
+                            @click="primaryButtonClick" :classList="(objectPopUp.type == 'warning' ? 'm-btn-default m-btn-delete': 'm-btn-default m-primary-btn')"
                             textColor="#ffffff"
                             :btnText="objectPopUp.buttonTexts[2]" />
                     </div>
@@ -50,13 +66,7 @@
         },
         mounted() {
             setTimeout(() => {
-                // Sự kiện esc để thoát popup
-                // this.$refs['popupContent'].addEventListener('keydown', (e) => {
-                //     if (e.which === 27) {
-                //         e.preventDefault();
-                //         this.$emit('hideLayout');
-                //     }
-                // })
+                this.$refs["content"].innerHTML = this.objectPopUp.contentPopUp
                 // Focus vào nút primary
                 this.$refs.primary.$refs.button.focus();
                 // Đặt sự kiện tab cho nút primary khi tab sẽ back về nút secondary

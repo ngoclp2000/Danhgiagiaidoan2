@@ -10,9 +10,15 @@
     font-family: Roboto-Bold;
 }
 .m-second-btn{
-    border: 0.3px solid #8d9096;
-    background-color: #fff;
+    /* border: 0.3px solid #8d9096; */
     color: #111;
+    background-color: var(--second-btn-bgColor) !important;
+}
+.m-btn-delete{
+    background-color: var(--delete-btn-bgColor) ;
+}
+.m-btn-delete:hover,.m-btn-delete:focus{
+    background-color: var(--delete-btn-bgColor-hover) !important;
 }
 
 .m-primary-btn{
@@ -29,7 +35,7 @@
         margin-right: 8px;
     }
 
-.m-btn-refresh ,.m-btn-delete{
+.m-btn-refresh {
     background-repeat: no-repeat;
     background-position: center;
     width: 40px;
@@ -39,25 +45,26 @@
     border-radius: 4px;
     cursor: pointer;
 }
-.m-btn-delete{
+/* .m-btn-delete{
     background-size: 20px;
     background-position: center;
-}
-.m-btn-refresh:hover,.m-btn-delete:hover {
+} */
+.m-btn-refresh:hover {
     background-color: #E9EBEE !important;
 }
 
-.m-btn-refresh:active,.m-btn-delete:active {
+.m-btn-refresh:active {
     background-color: #01B075 !important;
 }
 .m-btn-list{
     display: flex;
 }
 .m-btn-close {
-    background: url('../../../assets/icon/icon-sprites.svg') no-repeat -144px -144px;
+    background: url('../../../assets/icon/close.png') no-repeat ;
+    background-position: center center;
     cursor: pointer;
-    height: 24px;
-    width: 24px;
+    height: 16px;
+    width: 16px;
 }
 .m-btn-help{
     background: url('../../../assets/icon/icon-sprites.svg') no-repeat -89px -144px;

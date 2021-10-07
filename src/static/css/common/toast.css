@@ -1,45 +1,49 @@
 .toast-message {
     display: flex;
-    flex-direction: column;
     position: fixed;
     right: 10px;
     top: 30px;
     height: auto;
     width: 300px;
+    flex-direction: column;
 }
 
-.toast-message .toast {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.toast-message > .toast {
+    padding: 15px;
+    width: 100%;
     background-color: #fff;
     border-radius: 4px;
-    box-shadow: rgb(0 0 0 / 15%) 1.95px 1.95px 2.6px;
-    height: 48px;
+    box-shadow: 0 0 5px 2px rgb(0 0 0 / 15%);
+    height: 60px;
     width: 300px;
     box-sizing: border-box;
     position: relative;
     margin-bottom: 5px;
-    transform: translateX(100%); 
+    transform: translateX(100%);  
     animation: slide-in 0.5s forwards,
                slide-out 0.4s forwards 2.8s;
 }
-.toast-message .toast .toast-left-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .toast-message .toast .toast-img {
+    display: inline-block;
     height: 24px;
     width: 24px;
     background-repeat: no-repeat;
     background-size: 16px;
     background-position: center 4px;
-    margin-left: 10px;
     border-radius: 50% 50%;
+    position: absolute;
 }
-
+.center-vertical {
+    top: 50%;
+    transform: translate(0%,-50%)
+}
+.toast-message .toast .toast-content {
+    align-items: center;
+    display: flex;
+    position: absolute;
+    left: 50px;
+    width: calc(100% - 65px);
+}
 .toast-message .toast.error .toast-img {
     background-image: url("../../../assets/icon/error-toast.png");
     background-color: #eb5757;
@@ -69,10 +73,7 @@
     margin-right: 14px;
 }
 
-.toast-message .toast .toast-content {
-    margin-left: 14px;
-    flex: 70%;
-}
+
 .toast-message .toast.error .toast-icon {
     background-image: url("../../../assets/icon/error-close.png")
 }

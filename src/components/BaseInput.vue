@@ -4,9 +4,10 @@
             :class="[validType == 'money' || type == 'right-text'? 'currency-icon' : '',validType == 'search' ? 'search-icon' : '',iconClass]"></div> -->
         <input :tabindex="tabindex" :maxlength="maxlength" @mouseover="isDisplayToolTip = true" ref="input"
             @mouseleave="isDisplayToolTip=false" :placeholder="contentPlHolder" v-model="inputContent"
-            @keydown="evtKeyboardChoosingOption" @input="inputChange" autocomplete="off"
+            @keydown="evtKeyboardChoosingOption" @input="inputChange($event)" autocomplete="off"
             @click.stop="clickInput($event)" @keyup.enter="$emit('enterPress')" @blur="blurEvent"
-            @keydown.tab="$emit('tabPress')" :type="type" :readonly="isDisabled"
+            @keydown.tab="$emit('tabPress')" :type="type" :readonly="isDisabled" 
+            :style="{textAlign : textAlign}"
             :class="[classList, isError ? 'error' : '', active?'active':'',(isReadyData != null && !isReadyData) ? 'waiting-input' : '']"
             v-tooltip="{
                 content: (noneCheck == null ? errorContentData : tooltipContentData),
@@ -40,10 +41,80 @@
                 this.inputContent = this.initialValue;
             }
         },
-        props: ['maxlength', 'contentPlHolder', 'type', 'classList', 'validType',
-            'iconClass', 'tabindex', 'classInputContainer', 'isDisabled', 'name', 'isReadyData', 'isShowDropdown',
-            'tooltipContent', 'disableToolTip', 'noneCheck', 'formatType', 'initialValue', 'indexData'
-        ],
+        props:{
+            'maxlength':{
+                type: Number,
+                default: 255
+            },
+            'contentPlHolder':{
+                type: String,
+                default: ""
+            },
+            'type':{
+                type: String,
+                default: ""
+            },
+            'classList':{
+                type: String,
+                default: ""
+            },
+            'validType':{
+                type: String,
+                default: ""
+            },
+            'iconClass':{
+                type: String,
+                default: ""
+            },
+            'tabindex':{
+                type: Number,
+                default: 0
+            },
+            'classInputContainer':{
+                type: String,
+                default: ""
+            },
+            'isDisabled':{
+                type: Boolean,
+                default: false
+            },
+            'name':{
+                type: String,
+                default: ""
+            },
+            'isReadyData':{
+                type: Boolean,
+                default: true
+            },
+            'tooltipContent':{
+                type: String,
+                default: ""
+            },
+            'disableToolTip':{
+                type: Boolean,
+                default: false
+            },
+            'noneCheck':{
+                type: Boolean,
+                default: null
+            },
+            'formatType':{
+                type: String,
+                default: ""
+            },
+            'initialValue':{
+                type: String,
+                default: ""
+            },
+            'indexData':{
+                type: Number,
+                default: 0
+            },
+            'textAlign':{
+                type: String,
+                default: ""
+            }
+        },
         data() {
             return {
                 isDisplayToolTip: false,
@@ -54,6 +125,7 @@
                 errorContentData: "",
                 tooltipContentData: "",
                 isChange: false,
+                lockError: false,
             }
         },
         update() {
@@ -69,6 +141,7 @@
             initialValue(){
                 if(this.initialValue)
                     this.inputContent = this.initialValue;
+                else this.inputContent = "";
             }
         },
         methods: {
@@ -77,6 +150,7 @@
              */
             blurEvent() {
                 this.$emit('blur');
+                if(this.lockError) return;
                 setTimeout(() => {
                     this.validateContent();
                 }, 80)
@@ -95,11 +169,12 @@
              * Created by TBN (22/7/2021)
              */
             inputChange() {
+                this.lockError = false;
                 this.isDisplayToolTip = false;
                 this.isChange = true;
                 if (this.inputContent.length != 0) {
-                    if (this.validType == "required") {
-                        this.validateContent();
+                    if (this.validType.search("required") != -1) {
+                        this.validateContent(true);
                     }
                     // Nếu dạng tiền thì format .../,,, tùy theo yêu cầu
                     if (this.formatType == "money")
@@ -110,13 +185,10 @@
                     else if (this.formatType == "name") {
                         this.inputContent = Format.formatName(this.inputContent);
                     }
-                    this.isDisplayX = true;
-
                 } else {
-                    if (this.validType == "required") {
-                        this.validateContent();
+                    if (this.validType.search("required") != -1) {
+                        this.validateContent(true);
                     }
-                    this.isDisplayX = false;
                 }
                 // Emit dự kiện lọc option, cập nhật nội dung input, hiện dropdown khi nhập, sự kiện cập nhật dữ liệu đã nhập trên form
                 this.$emit('filterOption', this.inputContent);
@@ -168,7 +240,7 @@
              * Phương thức kiểm tra tính đúng đắn của dữ liệu trong input theo từng loại.
              * Created by TBN (22/7/2021)
              */
-            validateContent() {
+            validateContent(isInputChange) {
                 // Kiểm tra nội dung
                 if ( this.inputContent && this.inputContent.toString().length > 0) {
                     // Nếu dữ liệu không rỗng
@@ -176,18 +248,26 @@
                     // Nếu là loại combobox thì sẽ chuyển dừng phương thức vì combox sẽ kiểm tra tại component BaseCombobox
                     if (this.validType == "combobox")
                         return;
-                    switch (this.validType) {
-                        // Input bắt buộc nhập
-                        case "required":
-                            this.isError = false;
-                            break;
+                    else if( isInputChange && this.validType.search("required") != -1){
+                        this.isError = false;
+                        return;
+                    }
+                    switch (true) {
                         case 'combobox-required':
                             if (this.isError) {
                                 return;
                             }
                             break;
+                        case this.validType.search("float") != -1:
+                            if(Validation.checkFloatNumber(this.inputContent)){
+                                this.isError = false;
+                            }else {
+                                this.errorContentData = this.errorContent.invalid;
+                                this.isError = true;
+                            }
+                            break;
                             // Input CMND/ Căn cước
-                        case "identification":
+                        case this.validType.search("identification") != -1:
                             if (Validation.checkIdNumber(this.inputContent))
                                 this.isError = false;
                             else {
@@ -196,7 +276,7 @@
                             }
                             break;
                             // Input email
-                        case "email":
+                        case this.validType.search("email") != -1:
                             if (Validation.validateEmail(this.inputContent))
                                 this.isError = false;
                             else {
@@ -205,8 +285,15 @@
                             }
                             break;
                             // Input tiền hoặc số 
-                        case "number":
-                        case "phoneNumber":
+                        case this.validType.search("number") != -1:
+                            if(Validation.checkValidNumber(this.inputContent)){
+                                this.isError = false;
+                            }else{
+                                this.errorContentData = this.errorContent.invalid;
+                                this.isError = true;
+                            }
+                            break;
+                        case this.validType.search("phoneNumber") != -1:
                             if (Validation.checkValidNumber(Format.changeToNumber(this.inputContent))) {
                                 this.isError = false;
                             } else {
@@ -214,7 +301,7 @@
                                 this.isError = true;
                             }
                             break;
-                        case "telephoneNumber":
+                        case this.validType.search("telephoneNumber") != -1:
                             if (Validation.checkTelephoneNumber(this.inputContent)) {
                                 this.isError = false;
                             } else {

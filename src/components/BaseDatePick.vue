@@ -52,9 +52,9 @@
             
         },
         props: {
-            tabindex: String,
+            tabindex: Number,
             name: String,
-            maxlength: String,
+            maxlength: Number,
         },
         data: () => ({
             date: null,
@@ -127,8 +127,9 @@
             /**
              * Format lại giúp người
              */
-            formatDateInput($event) {
-                let dateInput = $event.target;
+            formatDateInput(event) {
+                if(event.inputType == "deleteContentBackward") return;
+                let dateInput = event.target;
                 if (dateInput.value) {
                     let newDate = Format.formatDateInput(dateInput.value,this.format);
                     dateInput.value = newDate;

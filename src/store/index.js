@@ -32,7 +32,9 @@ const storeData = {
             }],
             gender: resource[browserLocale]['management']['gender'],
             pageSize: resource[browserLocale]['management']['common']['pageSize'],
-            toast: [],
+            toast: [
+              
+            ],
             payload: {
 
             },

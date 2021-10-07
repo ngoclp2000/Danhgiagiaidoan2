@@ -29,6 +29,7 @@
     }
         .select-custom .option *{
             display: inline-block;
+            width: 100%;
         }
         .select-custom .option img{
             width: 20px;
